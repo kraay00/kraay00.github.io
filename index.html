@@ -47,7 +47,7 @@ body::after {
   transform: translate(-50%, -50%);
   text-align: center;
   z-index: 1;
-  transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1); /* smooth ease-out */
+  transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 /* Yazılar */
@@ -66,7 +66,16 @@ h1 {
   margin-bottom: 28px;
   color: #f8fbff;
   text-shadow: 0 0 6px rgba(255,255,255,0.35), 0 0 14px rgba(180,210,255,0.25);
-  transition: all 1s ease;
+  transition: all 1s ease, text-shadow 1s ease;
+}
+
+/* Glow efekt animasyonu */
+.glow {
+  color: #d0e6ff;
+  text-shadow: 
+    0 0 10px rgba(90,150,255,0.6), 
+    0 0 20px rgba(90,150,255,0.4),
+    0 0 30px rgba(90,150,255,0.2);
 }
 
 /* Buton */
@@ -81,7 +90,7 @@ h1 {
   color: #dfeaff;
   cursor: pointer;
   backdrop-filter: blur(4px);
-  transition: all 0.4s ease, transform 0.6s ease;
+  transition: all 0.4s ease, transform 0.6s ease, opacity 0.5s ease;
   text-decoration: none;
   display: inline-block;
 }
@@ -108,15 +117,21 @@ h1 {
 <script>
 const enterBtn = document.getElementById('enterBtn');
 const mainContainer = document.getElementById('mainContainer');
+const subtitle = document.getElementById('subtitle');
+const mainTitle = document.getElementById('mainTitle');
 
 enterBtn.addEventListener('click', () => {
-  // Buton kaybolsun
+  // Buton fade ile kaybolsun
   enterBtn.style.opacity = "0";
   enterBtn.style.pointerEvents = "none";
 
-  // Container yukarı doğru hareket etsin
-  // Başlangıçta translate(-50%, -50%) kullanıyoruz, burayı -50% => -80% yaparak yukarı taşıyoruz
-  mainContainer.style.transform = "translate(-50%, -80%)"; 
+  // Yazılar ve container yukarıya hareket
+  mainContainer.style.transform = "translate(-50%, -85%)";
+
+  // Glow efekti ve hafif büyüme
+  subtitle.classList.add("glow");
+  mainTitle.classList.add("glow");
+  mainTitle.style.transform = "scale(1.05)";
 });
 </script>
 </body>
