@@ -79,50 +79,38 @@ h1 {
 
 /* Buton */
 .btn {
-  padding: 12px 30px;
-  font-size: 14px;
-  letter-spacing: 1.5px;
-  border-radius: 25px;
+  padding: 13px 42px;
+  font-size: 13.5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 30px;
   border: 1px solid rgba(140, 180, 255, 0.25);
   background: rgba(15, 28, 48, 0.6);
   color: #dfeaff;
   cursor: pointer;
   backdrop-filter: blur(4px);
-  transition: all 0.3s ease;
+  transition: all 0.4s ease, transform 0.6s ease, opacity 0.5s ease;
   text-decoration: none;
   display: inline-block;
-}
-
-.btn:hover {
-  background: rgba(140, 180, 255, 0.08);
-  border-color: rgba(140, 180, 255, 0.55);
-  box-shadow: 0 0 12px rgba(120, 170, 255, 0.25);
-}
-
-.btn:active {
-  transform: scale(0.97);
 }
 
 /* Register form */
 .registerForm {
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, 30px); /* başlangıçta biraz aşağı */
+  bottom: -400px;
+  transform: translateX(-50%);
   width: 360px;
   text-align: center;
   opacity: 0;
   pointer-events: none;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  z-index: 2;
-  transition: all 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: all 0.8s ease;
 }
 
 .registerForm input {
-  width: 100%;
+  width: 90%;
   padding: 12px;
+  margin-bottom: 15px;
   border-radius: 12px;
   border: 1px solid rgba(50,150,255,0.5);
   background: rgba(0,0,0,0.35);
@@ -137,7 +125,7 @@ h1 {
   box-shadow:0 0 8px rgba(90,150,255,0.4);
 }
 
-/* Butonlar container */
+/* Butonları ikiye böl */
 .formButtons {
   display: flex;
   justify-content: space-between;
@@ -183,21 +171,21 @@ enterBtn.addEventListener('click', () => {
   enterBtn.style.pointerEvents = "none";
 
   // Yazılar yukarı çıkacak
-  mainContainer.style.transform = "translate(-50%, -170px)";
+  mainContainer.style.transform = "translate(-50%, -250px)";
   subtitle.classList.add("glow");
   mainTitle.classList.add("glow");
 
-  // Register form ortadan yukarı çıkacak
+  // Register form animasyonla ortadan çıkacak
+  registerForm.style.bottom = "50px";
   registerForm.style.opacity = "1";
   registerForm.style.pointerEvents = "all";
-  registerForm.style.transform = "translate(-50%, -50%)";
 });
 
 backBtn.addEventListener('click', () => {
   // Formu gizle
+  registerForm.style.bottom = "-400px";
   registerForm.style.opacity = "0";
   registerForm.style.pointerEvents = "none";
-  registerForm.style.transform = "translate(-50%, 30px)";
 
   // Yazıları geri getir
   mainContainer.style.transform = "translate(-50%, -50%)";
