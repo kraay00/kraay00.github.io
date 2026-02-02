@@ -197,5 +197,74 @@ backBtn.addEventListener('click', () => {
   enterBtn.style.pointerEvents = "all";
 });
 </script>
+
+<!-- Sağ üst köşe küçük giriş butonu -->
+<button class="btn" id="loginShortcut" style="position:absolute;top:15px;right:15px;padding:8px 20px;font-size:12px;border-radius:20px;">Giriş Yap</button>
+
+<!-- Login form -->
+<div class="loginForm" id="loginForm">
+  <input type="text" placeholder="Kullanıcı Adı">
+  <input type="password" placeholder="Şifre">
+  <button class="btn">Giriş Yap</button>
+</div>
+
+<style>
+.loginForm {
+  position: absolute;
+  left: 50%;
+  bottom: -200px;
+  transform: translateX(-50%);
+  width: 300px;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.8s ease;
+}
+
+.loginForm input {
+  width: 90%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(50,150,255,0.5);
+  background: rgba(0,0,0,0.35);
+  color: #e8f0ff;
+  font-size: 14px;
+  outline:none;
+  transition: all 0.3s ease;
+}
+
+.loginForm input:focus {
+  border-color: rgba(90,150,255,0.8);
+  box-shadow:0 0 8px rgba(90,150,255,0.4);
+}
+
+.loginForm button {
+  width: 95%;
+}
+</style>
+
+<script>
+const loginShortcut = document.getElementById('loginShortcut');
+const loginForm = document.getElementById('loginForm');
+
+loginShortcut.addEventListener('click', () => {
+  // Tüm mevcut container görünürlüğünü kapat
+  const mainContainer = document.getElementById('mainContainer');
+  mainContainer.style.opacity = "0";
+  mainContainer.style.pointerEvents = "none";
+  
+  // PROJECT Z yazısı yukarı çıksın
+  const subtitle = document.getElementById('subtitle');
+  subtitle.style.transform = "translateY(-150px)";
+  subtitle.classList.add("glow");
+  
+  // Login form yukarı animasyonla çıksın
+  loginForm.style.bottom = "175px";
+  loginForm.style.opacity = "1";
+  loginForm.style.pointerEvents = "all";
+});
+</script>
+
 </body>
 </html>
