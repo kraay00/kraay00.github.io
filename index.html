@@ -23,23 +23,21 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  /* Mavi alanı %45'ten %25'e çektim, böylece daha merkezde kaldı */
   background: radial-gradient(circle at center, #132a4a 0%, #0a1525 25%, #000 60%);
   z-index: 0;
 }
 
-/* 🔵 MERKEZDEKİ PARLAMA (GLOW) - BOYUTU KÜÇÜLTÜLDÜ */
+/* 🔵 MERKEZDEKİ PARLAMA (GLOW) */
 body::after {
   content: "";
   position: fixed;
   top: 50%;
   left: 50%;
-  /* Genişliği 520px'den 300px'e düşürdüm */
   width: 300px; 
   height: 300px;
   transform: translate(-50%, -50%);
   background: radial-gradient(circle, rgba(90,150,255,0.18) 0%, rgba(0,0,0,0) 70%);
-  filter: blur(60px); /* Blur değerini de azalttım ki çok dağılmasın */
+  filter: blur(60px);
   z-index: 0;
 }
 
@@ -92,6 +90,8 @@ h1 {
   cursor: pointer;
   backdrop-filter: blur(4px);
   transition: all 0.25s ease;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .btn:hover {
@@ -111,7 +111,8 @@ h1 {
 <div class="container">
   <div class="subtitle">PROJECT Z</div>
   <h1>İlk davana hazır mısın?</h1>
-  <button class="btn">SİSTEME GİR</button>
+  <!-- Buton artık login.html'e yönlendiriyor -->
+  <a href="login.html" class="btn">SİSTEME GİR</a>
 </div>
 
 </body>
