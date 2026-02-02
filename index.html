@@ -149,6 +149,48 @@ h1 {
 }
 .formContainer .formButtons .btn { width: 48%; }
 
+/* Hızlı giriş butonu */
+.quick-login-btn {
+  width: 90%;
+  padding: 14px;
+  margin-top: 15px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  border-radius: 12px;
+  border: 1px dashed rgba(90, 200, 150, 0.4);
+  background: rgba(90, 200, 150, 0.1);
+  color: #7ddfb8;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quick-login-btn:hover {
+  background: rgba(90, 200, 150, 0.2);
+  border-style: solid;
+  transform: translateY(-2px);
+}
+
+/* Ayırıcı */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 5px;
+  color: rgba(255,255,255,0.3);
+  font-size: 12px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.15);
+}
+
+.divider span {
+  padding: 0 15px;
+}
+
 @media (max-width: 420px){
   .formContainer{ width: 92vw; }
   h1{ font-size: 28px; }
@@ -166,6 +208,7 @@ h1 {
 
 <button class="btn" id="loginShortcut">Giriş Yap</button>
 
+<!-- Kayıt Formu -->
 <div class="formContainer" id="registerForm">
   <input type="text" placeholder="İsim Soyisim" id="regName">
   <input type="text" placeholder="Kullanıcı Adı" id="regUser">
@@ -177,6 +220,7 @@ h1 {
   </div>
 </div>
 
+<!-- Giriş Formu -->
 <div class="formContainer" id="loginForm">
   <input type="text" placeholder="Kullanıcı Adı" id="loginUser">
   <input type="password" placeholder="Şifre" id="loginPass">
@@ -184,6 +228,14 @@ h1 {
     <button class="btn" id="loginBack">Geri Dön</button>
     <button class="btn" id="loginSubmit">Giriş Yap</button>
   </div>
+  
+  <div class="divider">
+    <span>veya</span>
+  </div>
+  
+  <button class="quick-login-btn" id="quickLoginBtn">
+    ⚡ Hızlı Giriş (Şifresiz Demo)
+  </button>
 </div>
 
 <script>
@@ -200,6 +252,8 @@ const registerSubmit = document.getElementById('registerSubmit');
 const loginForm = document.getElementById('loginForm');
 const loginBack = document.getElementById('loginBack');
 const loginSubmit = document.getElementById('loginSubmit');
+
+const quickLoginBtn = document.getElementById('quickLoginBtn');
 
 // Register açma
 enterBtn.addEventListener('click', () => {
@@ -237,7 +291,16 @@ registerBack.addEventListener('click', () => {
 
 // Register submit -> panel
 registerSubmit.addEventListener('click', () => {
-  // Demo: direkt panel
+  // Verileri kaydet
+  const name = document.getElementById('regName').value;
+  const user = document.getElementById('regUser').value;
+  const mail = document.getElementById('regMail').value;
+  
+  if (name) localStorage.setItem('regName', name);
+  if (user) localStorage.setItem('regUser', user);
+  if (mail) localStorage.setItem('regMail', mail);
+  
+  // Panele git
   window.location.href = 'panel.html';
 });
 
@@ -275,10 +338,48 @@ loginBack.addEventListener('click', () => {
   mainTitle.style.opacity = "1";
 });
 
-// Login submit -> panel
+// Login submit -> panel (şifreli giriş)
 loginSubmit.addEventListener('click', () => {
-  // Demo: direkt panel
+  const user = document.getElementById('loginUser').value;
+  
+  if (user) {
+    localStorage.setItem('username', user);
+    localStorage.setItem('userDisplayName', user);
+  }
+  
   window.location.href = 'panel.html';
+});
+
+// ⚡ Hızlı Giriş (Şifresiz Demo)
+quickLoginBtn.addEventListener('click', () => {
+  // Demo kullanıcı bilgileri oluştur
+  const demoNames = ['Gizem Avcısı', 'Karanlık Dedektif', 'Sır Çözücü', 'Gölge Takipçi', 'Gizemli Ajan'];
+  const randomName = demoNames[Math.floor(Math.random() * demoNames.length)];
+  
+  localStorage.setItem('userDisplayName', randomName);
+  localStorage.setItem('username', 'demo_user');
+  localStorage.setItem('quickLogin', 'true');
+  
+  // Animasyonlu geçiş
+  document.body.style.transition = 'opacity 0.5s ease';
+  document.body.style.opacity = '0';
+  
+  setTimeout(() => {
+    window.location.href = 'panel.html';
+  }, 500);
+});
+
+// Enter tuşu ile form gönderme
+document.getElementById('loginPass').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    loginSubmit.click();
+  }
+});
+
+document.getElementById('regMail').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    registerSubmit.click();
+  }
 });
 </script>
 
