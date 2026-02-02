@@ -47,7 +47,7 @@ body::after {
   transform: translate(-50%, -50%);
   text-align: center;
   z-index: 1;
-  transition: all 1s ease;
+  transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1); /* smooth ease-out */
 }
 
 /* Yazılar */
@@ -81,7 +81,7 @@ h1 {
   color: #dfeaff;
   cursor: pointer;
   backdrop-filter: blur(4px);
-  transition: all 0.6s ease;
+  transition: all 0.4s ease, transform 0.6s ease;
   text-decoration: none;
   display: inline-block;
 }
@@ -115,9 +115,8 @@ enterBtn.addEventListener('click', () => {
   enterBtn.style.pointerEvents = "none";
 
   // Container yukarı doğru hareket etsin
-  // Sayfanın üst kısmına yakın bir konuma (ör: 100px)
-  mainContainer.style.top = "100px";
-  mainContainer.style.transform = "translateX(-50%)"; // yatayda ortada kalsın
+  // Başlangıçta translate(-50%, -50%) kullanıyoruz, burayı -50% => -80% yaparak yukarı taşıyoruz
+  mainContainer.style.transform = "translate(-50%, -80%)"; 
 });
 </script>
 </body>
