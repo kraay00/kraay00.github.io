@@ -41,7 +41,7 @@ body::after {
   z-index: 0;
 }
 
-
+/* Temel container */
 body {
   min-height: 100svh;
   display: flex;
@@ -58,6 +58,7 @@ body {
   text-align: center;
   max-width: 520px;
   padding: 20px;
+  transition: all 0.6s ease;
 }
 
 .subtitle {
@@ -92,6 +93,8 @@ h1 {
   transition: all 0.25s ease;
   text-decoration: none;
   display: inline-block;
+  position: relative;
+  z-index: 1;
 }
 
 .btn:hover {
@@ -103,17 +106,149 @@ h1 {
 .btn:active {
   transform: scale(0.97);
 }
+
+/* Yarım elips üstte */
+.ellipse {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 300px;
+  height: 150px;
+  background: rgba(90,150,255,0.2);
+  border-radius: 150px 150px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 24px;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  transition: all 0.8s ease;
+  z-index:2;
+}
+
+/* Login panel */
+.loginPanel {
+  position: absolute;
+  bottom: -400px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 360px;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(50,150,255,0.6);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 0 30px rgba(50,150,255,0.2);
+  opacity:0;
+  transition: all 0.8s ease;
+  z-index:1;
+}
+
+.loginPanel input {
+  width: 90%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  border:1px solid rgba(50,150,255,0.5);
+  background: rgba(0,0,0,0.35);
+  color: #e8f0ff;
+  font-size: 14px;
+  outline:none;
+  transition: all 0.3s ease;
+}
+
+.loginPanel input:focus {
+  border-color: rgba(90,150,255,0.8);
+  box-shadow:0 0 8px rgba(90,150,255,0.4);
+}
+
+.loginPanel .btn {
+  width: 95%;
+  margin-top: 10px;
+}
+
+/* Geri dön butonu */
+.backBtn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid rgba(50,150,255,0.6);
+  background: rgba(0,0,0,0.35);
+  color: #dfeaff;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  opacity:0;
+  transition: all 0.5s ease;
+  z-index:3;
+}
+.backBtn:hover {
+  box-shadow:0 0 10px rgba(50,150,255,0.5);
+  border-color: rgba(90,150,255,0.8);
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="container" id="mainContainer">
   <div class="subtitle">PROJECT Z</div>
   <h1>İlk davana hazır mısın?</h1>
-  <!-- Buton artık login.html'e yönlendiriyor -->
-  <a href="login.html" class="btn">SİSTEME GİR</a>
+  <button class="btn" id="enterBtn">SİSTEME GİR</button>
 </div>
+
+<div class="ellipse" id="ellipse">Project Z</div>
+
+<div class="loginPanel" id="loginPanel">
+  <input type="text" placeholder="Kullanıcı Adı">
+  <input type="password" placeholder="Şifre">
+  <button class="btn">Giriş Yap</button>
+</div>
+
+<div class="backBtn" id="backBtn">←</div>
+
+<script>
+const enterBtn = document.getElementById('enterBtn');
+const ellipse = document.getElementById('ellipse');
+const loginPanel = document.getElementById('loginPanel');
+const backBtn = document.getElementById('backBtn');
+const mainContainer = document.getElementById('mainContainer');
+
+enterBtn.addEventListener('click', ()=>{
+  // Butonu yukarı taşı
+  mainContainer.style.transform = "translateY(-150px)";
+  mainContainer.style.transition = "all 0.8s ease";
+  
+  // Elips açılacak
+  ellipse.style.opacity = "1";
+  ellipse.style.transform = "translate(-50%, 0) scale(1)";
+  
+  // Login panel açılacak
+  loginPanel.style.bottom = "50px";
+  loginPanel.style.opacity = "1";
+  
+  // Geri dön butonu görünür
+  backBtn.style.opacity = "1";
+});
+
+backBtn.addEventListener('click', ()=>{
+  // Geri animasyon
+  mainContainer.style.transform = "translateY(0)";
+  ellipse.style.opacity = "0";
+  ellipse.style.transform = "translate(-50%, -50%) scale(0)";
+  loginPanel.style.bottom = "-400px";
+  loginPanel.style.opacity = "0";
+  backBtn.style.opacity = "0";
+});
+</script>
 
 </body>
 </html>
