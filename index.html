@@ -1,27 +1,33 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" style="background:#000;">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#000000">
 <title>Project Z</title>
 
 <style>
-* {
+html, body {
   margin: 0;
   padding: 0;
+  background: #000; /* Beyaz flaşı engeller */
+  height: 100%;
+}
+
+* {
   box-sizing: border-box;
   font-family: "Segoe UI", Roboto, sans-serif;
 }
 
-/* 🔥 ARKA PLANI BODY’DEN ALDIK */
+/* TAM EKRAN ARKA PLAN KATMANI */
 .bg {
   position: fixed;
   inset: 0;
   background: radial-gradient(circle at center, #0a1a2f 0%, #05070d 60%, #000 100%);
-  z-index: -2;
+  z-index: -3;
 }
 
-/* Mavi glow */
+/* MAVİ GLOW */
 .glow {
   position: fixed;
   top: 50%;
@@ -32,7 +38,7 @@
   background: rgba(120, 170, 255, 0.12);
   border-radius: 50%;
   filter: blur(130px);
-  z-index: -1;
+  z-index: -2;
 }
 
 body {
@@ -50,6 +56,7 @@ body {
   text-align: center;
   max-width: 520px;
   padding: 20px;
+  z-index: 1;
 }
 
 .subtitle {
