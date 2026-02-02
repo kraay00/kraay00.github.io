@@ -1,262 +1,619 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0f223d">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Project Z</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f223d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Project Z Panel</title>
 
-<style>
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background: #000;
-  font-family: "Segoe UI", Roboto, sans-serif;
-  overflow: hidden;
-}
+  <style>
+    :root{
+      --bg1:#132a4a;
+      --bg2:#0a1525;
+      --glass: rgba(15, 28, 48, 0.60);
+      --glass2: rgba(0,0,0,0.25);
+      --border: rgba(140, 180, 255, 0.20);
+      --border2: rgba(140, 180, 255, 0.35);
+      --text: #e8f0ff;
+      --muted: rgba(255,255,255,0.45);
+      --shadow: 0 0 10px rgba(90,150,255,0.20);
+    }
 
-/* Arkaplan */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at center, #132a4a 0%, #0a1525 25%, #000 60%);
-  z-index: 0;
-}
-body::after {
-  content: "";
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 300px;
-  height: 300px;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(90,150,255,0.18) 0%, rgba(0,0,0,0) 70%);
-  filter: blur(60px);
-  z-index: 0;
-}
+    *{ box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      font-family: "Segoe UI", Roboto, sans-serif;
+      overflow: hidden;
+      color: var(--text);
+    }
 
-/* Container */
-.container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 1;
-  transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
-}
+    /* Arkaplan (index ile aynı hissiyat) */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, var(--bg1) 0%, var(--bg2) 25%, #000 60%);
+      z-index: 0;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 360px;
+      height: 360px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(90,150,255,0.16) 0%, rgba(0,0,0,0) 70%);
+      filter: blur(70px);
+      z-index: 0;
+    }
 
-.subtitle {
-  font-size: 13px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.35);
-  margin-bottom: 14px;
-  transition: all 1s ease;
-}
+    .app{
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+    }
 
-h1 {
-  font-size: 34px;
-  font-weight: 700;
-  margin-bottom: 28px;
-  color: #f8fbff;
-  text-shadow: 0 0 6px rgba(255,255,255,0.35), 0 0 14px rgba(180,210,255,0.25);
-  transition: all 1s ease, transform 1s ease;
-}
+    /* Sidebar */
+    .sidebar{
+      border-right: 1px solid var(--border);
+      background: rgba(10, 16, 28, 0.30);
+      backdrop-filter: blur(6px);
+      padding: 18px 14px;
+      overflow: auto;
+    }
+    .brand{
+      padding: 10px 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--glass);
+      box-shadow: var(--shadow);
+    }
+    .brand .kicker{
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.35);
+    }
+    .brand .title{
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #f8fbff;
+      text-shadow: 0 0 6px rgba(255,255,255,0.25), 0 0 14px rgba(180,210,255,0.18);
+    }
 
-/* Glow efekti */
-.glow {
-  color: #d0e6ff;
-  text-shadow: 
-    0 0 10px rgba(90,150,255,0.6), 
-    0 0 20px rgba(90,150,255,0.4),
-    0 0 30px rgba(90,150,255,0.2);
-}
+    .nav{
+      margin-top: 14px;
+      display: grid;
+      gap: 10px;
+    }
+    .nav button{
+      width: 100%;
+      text-align: left;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(15, 28, 48, 0.45);
+      color: var(--text);
+      padding: 12px 12px;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+    .nav button:hover{
+      border-color: var(--border2);
+      background: rgba(15, 28, 48, 0.75);
+      transform: translateY(-1px);
+    }
+    .nav button.active{
+      border-color: rgba(90,150,255,0.55);
+      box-shadow: 0 0 10px rgba(90,150,255,0.25);
+    }
+    .nav .hint{
+      display:block;
+      margin-top: 4px;
+      color: rgba(255,255,255,0.45);
+      font-size: 12px;
+    }
 
-/* Buton */
-.btn {
-  padding: 13px 42px;
-  font-size: 13.5px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  border-radius: 30px;
-  border: 1px solid rgba(140, 180, 255, 0.25);
-  background: rgba(15, 28, 48, 0.6);
-  color: #dfeaff;
-  cursor: pointer;
-  backdrop-filter: blur(4px);
-  transition: all 0.4s ease, transform 0.6s ease, opacity 0.5s ease;
-  text-decoration: none;
-  display: inline-block;
-}
+    /* Main */
+    .main{
+      display: grid;
+      grid-template-rows: auto 1fr;
+      overflow: hidden;
+    }
 
-/* Sağ üst küçük login butonu */
-#loginShortcut {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  padding: 8px 20px;
-  font-size: 12px;
-  border-radius: 20px;
-  z-index: 2;
-}
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10, 16, 28, 0.25);
+      backdrop-filter: blur(6px);
+    }
 
-/* Formlar */
-.formContainer {
-  position: absolute;
-  left: 50%;
-  bottom: -400px;
-  transform: translateX(-50%);
-  width: 360px;
-  text-align: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.8s ease;
-}
+    .topbar-left{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 0;
+    }
 
-.formContainer input {
-  width: 90%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 12px;
-  border: 1px solid rgba(50,150,255,0.5);
-  background: rgba(0,0,0,0.35);
-  color: #e8f0ff;
-  font-size: 14px;
-  outline:none;
-  transition: all 0.3s ease;
-}
+    .menuBtn{
+      display:none;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(15, 28, 48, 0.60);
+      color: var(--text);
+      padding: 10px 12px;
+      cursor: pointer;
+      transition: 0.25s ease;
+      white-space: nowrap;
+    }
+    .menuBtn:hover{ border-color: var(--border2); }
 
-.formContainer input:focus {
-  border-color: rgba(90,150,255,0.8);
-  box-shadow:0 0 8px rgba(90,150,255,0.4);
-}
+    .pageTitle{
+      min-width: 0;
+    }
+    .pageTitle h1{
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      color: #f8fbff;
+    }
+    .pageTitle p{
+      margin: 4px 0 0 0;
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-.formContainer .formButtons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 8px;
-}
+    .btn{
+      padding: 10px 18px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 30px;
+      border: 1px solid rgba(140, 180, 255, 0.25);
+      background: rgba(15, 28, 48, 0.6);
+      color: #dfeaff;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: all 0.25s ease;
+      text-decoration: none;
+      display: inline-block;
+      white-space: nowrap;
+    }
+    .btn:hover {
+      border-color: rgba(140, 180, 255, 0.5);
+      background: rgba(15, 28, 48, 0.8);
+      transform: translateY(-1px);
+    }
 
-.formContainer .formButtons .btn {
-  width: 48%;
-}
-</style>
+    .content{
+      overflow: auto;
+      padding: 16px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+    }
+
+    .card{
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(15, 28, 48, 0.35);
+      backdrop-filter: blur(6px);
+      padding: 14px;
+      box-shadow: 0 0 10px rgba(90,150,255,0.10);
+    }
+    .card h2{
+      margin: 0 0 8px 0;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+    }
+    .stat{
+      font-size: 26px;
+      font-weight: 800;
+      color: #f8fbff;
+      text-shadow: 0 0 10px rgba(90,150,255,0.25);
+      margin: 2px 0 6px 0;
+    }
+    .muted{ color: rgba(255,255,255,0.45); font-size: 12px; }
+
+    .table{
+      width:100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    .table th, .table td{
+      padding: 10px 10px;
+      border-bottom: 1px solid rgba(140, 180, 255, 0.14);
+      font-size: 13px;
+    }
+    .table th{
+      text-align:left;
+      color: rgba(255,255,255,0.65);
+      font-weight: 600;
+      background: rgba(0,0,0,0.18);
+    }
+    .badge{
+      display:inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(140, 180, 255, 0.25);
+      background: rgba(0,0,0,0.22);
+      color: rgba(230,242,255,0.9);
+      font-size: 12px;
+    }
+
+    /* Paneller */
+    .panel{ display:none; }
+    .panel.active{ display:block; }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .app{ grid-template-columns: 1fr; }
+      .sidebar{
+        position: fixed;
+        inset: 0 auto 0 0;
+        width: 290px;
+        transform: translateX(-110%);
+        transition: transform 0.35s ease;
+        z-index: 20;
+      }
+      .sidebar.open{ transform: translateX(0); }
+      .menuBtn{ display:inline-block; }
+      .overlay{
+        display:none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.55);
+        z-index: 19;
+      }
+      .overlay.show{ display:block; }
+      body{ overflow:hidden; }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="overlay" id="overlay"></div>
 
-<div class="container" id="mainContainer">
-  <div class="subtitle" id="subtitle">PROJECT Z</div>
-  <h1 id="mainTitle">İlk davana hazır mısın?</h1>
-  <button class="btn" id="enterBtn">SİSTEME GİR</button>
-</div>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="kicker">PROJECT Z</div>
+        <div class="title">Yönetim Paneli</div>
+      </div>
 
-<!-- Sağ üst login shortcut -->
-<button class="btn" id="loginShortcut">Giriş Yap</button>
+      <div class="nav" id="nav">
+        <button class="active" data-target="dash">
+          Dashboard <span class="hint">Özet ve istatistik</span>
+        </button>
+        <button data-target="users">
+          Kullanıcılar <span class="hint">Liste / durum</span>
+        </button>
+        <button data-target="settings">
+          Ayarlar <span class="hint">Panel yapılandırma</span>
+        </button>
+      </div>
 
-<!-- Register form -->
-<div class="formContainer" id="registerForm">
-  <input type="text" placeholder="İsim Soyisim">
-  <input type="text" placeholder="Kullanıcı Adı">
-  <input type="email" placeholder="E-posta">
-  <input type="date" placeholder="Doğum Tarihi">
-  <div class="formButtons">
-    <button class="btn" id="registerBack">Geri Dön</button>
-    <button class="btn">Kayıt Ol</button>
+      <div style="margin-top:12px;">
+        <button class="btn" id="logoutBtn" style="width:100%;">Çıkış</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menuBtn" id="menuBtn">Menü</button>
+          <div class="pageTitle">
+            <h1 id="pageTitle">Dashboard</h1>
+            <p id="pageDesc">Project Z sistem durumunu görüntülüyorsun</p>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+          <span class="badge" id="roleBadge">ROLE: DEMO</span>
+          <button class="btn" id="refreshBtn">Yenile</button>
+        </div>
+      </header>
+
+      <section class="content">
+        <!-- Dashboard -->
+        <div class="panel active" id="dash">
+          <div class="grid">
+            <div class="card" style="grid-column: span 4;">
+              <h2>Aktif Kullanıcı</h2>
+              <div class="stat" id="statActive">128</div>
+              <div class="muted">Son 24 saat: +12</div>
+            </div>
+            <div class="card" style="grid-column: span 4;">
+              <h2>Toplam Kayıt</h2>
+              <div class="stat" id="statTotal">1.024</div>
+              <div class="muted">Bu hafta: +73</div>
+            </div>
+            <div class="card" style="grid-column: span 4;">
+              <h2>Sistem Durumu</h2>
+              <div class="stat">OK</div>
+              <div class="muted">Ping: 18ms • Hata: 0</div>
+            </div>
+
+            <div class="card" style="grid-column: span 8;">
+              <h2>Son İşlemler</h2>
+              <table class="table" aria-label="Son işlemler tablosu">
+                <thead>
+                  <tr>
+                    <th>Tarih</th>
+                    <th>İşlem</th>
+                    <th>Kullanıcı</th>
+                    <th>Durum</th>
+                  </tr>
+                </thead>
+                <tbody id="activityBody">
+                  <tr>
+                    <td>Bugün</td>
+                    <td>Giriş</td>
+                    <td>z-user</td>
+                    <td><span class="badge">Başarılı</span></td>
+                  </tr>
+                  <tr>
+                    <td>Dün</td>
+                    <td>Kayıt</td>
+                    <td>nova</td>
+                    <td><span class="badge">Başarılı</span></td>
+                  </tr>
+                  <tr>
+                    <td>Dün</td>
+                    <td>Şifre Denemesi</td>
+                    <td>guest</td>
+                    <td><span class="badge">Blok</span></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="muted" style="margin-top:10px;">Not: Demo verisi.</div>
+            </div>
+
+            <div class="card" style="grid-column: span 4;">
+              <h2>Hızlı İşlemler</h2>
+              <div style="display:grid; gap:10px; margin-top:10px;">
+                <button class="btn" id="addUserBtn" style="width:100%;">Kullanıcı Ekle</button>
+                <button class="btn" id="exportBtn" style="width:100%;">Rapor Al</button>
+                <button class="btn" id="alertBtn" style="width:100%;">Test Bildirimi</button>
+              </div>
+              <div class="muted" style="margin-top:10px;">Butonlar demo amaçlıdır.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Users -->
+        <div class="panel" id="users">
+          <div class="card">
+            <h2>Kullanıcılar</h2>
+            <div class="muted">Bu alanı API / DB ile besleyebilirsin. Şimdilik demo tablo.</div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+              <input id="userSearch" placeholder="Kullanıcı ara..." style="
+                flex: 1;
+                min-width: 200px;
+                padding: 12px;
+                border-radius: 12px;
+                border: none;
+                background: rgba(0,0,0,0.25);
+                color: #e8f0ff;
+                font-size: 14px;
+                outline:none;
+              ">
+              <button class="btn" id="clearSearch">Temizle</button>
+            </div>
+
+            <div style="margin-top:12px; overflow:auto;">
+              <table class="table" aria-label="Kullanıcılar tablosu">
+                <thead>
+                  <tr>
+                    <th>Kullanıcı</th>
+                    <th>E-posta</th>
+                    <th>Rol</th>
+                    <th>Durum</th>
+                  </tr>
+                </thead>
+                <tbody id="usersBody">
+                  <tr>
+                    <td>z-user</td>
+                    <td>z-user@mail.com</td>
+                    <td><span class="badge">Admin</span></td>
+                    <td><span class="badge">Aktif</span></td>
+                  </tr>
+                  <tr>
+                    <td>nova</td>
+                    <td>nova@mail.com</td>
+                    <td><span class="badge">Üye</span></td>
+                    <td><span class="badge">Aktif</span></td>
+                  </tr>
+                  <tr>
+                    <td>guest</td>
+                    <td>guest@mail.com</td>
+                    <td><span class="badge">Ziyaretçi</span></td>
+                    <td><span class="badge">Blok</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings -->
+        <div class="panel" id="settings">
+          <div class="grid">
+            <div class="card" style="grid-column: span 6;">
+              <h2>Ayarlar</h2>
+              <div class="muted">Demo: sadece arayüz.</div>
+
+              <div style="margin-top:12px; display:grid; gap:10px;">
+                <label class="muted">Panel Başlığı</label>
+                <input id="titleInput" value="Project Z Yönetim Paneli" style="
+                  width: 100%;
+                  padding: 12px;
+                  border-radius: 12px;
+                  border: none;
+                  background: rgba(0,0,0,0.25);
+                  color: #e8f0ff;
+                  font-size: 14px;
+                  outline:none;
+                ">
+                <button class="btn" id="saveSettings">Kaydet</button>
+              </div>
+            </div>
+
+            <div class="card" style="grid-column: span 6;">
+              <h2>Bilgi</h2>
+              <div class="muted">
+                Burayı sonraki adımda şunlarla geliştirebiliriz:
+                <ul>
+                  <li>Gerçek giriş sistemi (token / session)</li>
+                  <li>Kayıt & kullanıcı yönetimi (API)</li>
+                  <li>Yetkilendirme (admin/üye)</li>
+                  <li>Grafikler (chart)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </main>
   </div>
-</div>
 
-<!-- Login form -->
-<div class="formContainer" id="loginForm">
-  <input type="text" placeholder="Kullanıcı Adı">
-  <input type="password" placeholder="Şifre">
-  <div class="formButtons">
-    <button class="btn" id="loginBack">Geri Dön</button>
-    <button class="btn">Giriş Yap</button>
-  </div>
-</div>
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const menuBtn = document.getElementById('menuBtn');
 
-<script>
-const mainContainer = document.getElementById('mainContainer');
-const subtitle = document.getElementById('subtitle');
-const mainTitle = document.getElementById('mainTitle');
+    const nav = document.getElementById('nav');
+    const panels = Array.from(document.querySelectorAll('.panel'));
+    const pageTitle = document.getElementById('pageTitle');
+    const pageDesc = document.getElementById('pageDesc');
 
-const enterBtn = document.getElementById('enterBtn');
-const loginShortcut = document.getElementById('loginShortcut');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const refreshBtn = document.getElementById('refreshBtn');
 
-const registerForm = document.getElementById('registerForm');
-const registerBack = document.getElementById('registerBack');
+    const titleInput = document.getElementById('titleInput');
+    const saveSettings = document.getElementById('saveSettings');
 
-const loginForm = document.getElementById('loginForm');
-const loginBack = document.getElementById('loginBack');
+    const userSearch = document.getElementById('userSearch');
+    const clearSearch = document.getElementById('clearSearch');
+    const usersBody = document.getElementById('usersBody');
 
-// Register açma
-enterBtn.addEventListener('click', () => {
-  mainContainer.style.opacity = "0";
-  mainContainer.style.pointerEvents = "none";
-  loginShortcut.style.opacity = "0";
-  loginShortcut.style.pointerEvents = "none";
+    const addUserBtn = document.getElementById('addUserBtn');
+    const exportBtn = document.getElementById('exportBtn');
+    const alertBtn = document.getElementById('alertBtn');
 
-  subtitle.style.transform = "translateY(-150px)";
-  subtitle.classList.add("glow");
+    function openSidebar(){
+      sidebar.classList.add('open');
+      overlay.classList.add('show');
+    }
+    function closeSidebar(){
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+    }
 
-  registerForm.style.bottom = "175px";
-  registerForm.style.opacity = "1";
-  registerForm.style.pointerEvents = "all";
-});
+    menuBtn.addEventListener('click', () => {
+      if(sidebar.classList.contains('open')) closeSidebar();
+      else openSidebar();
+    });
+    overlay.addEventListener('click', closeSidebar);
 
-// Register geri
-registerBack.addEventListener('click', () => {
-  registerForm.style.bottom = "-400px";
-  registerForm.style.opacity = "0";
-  registerForm.style.pointerEvents = "none";
+    // Panel geçişleri
+    nav.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-target]');
+      if(!btn) return;
 
-  mainContainer.style.opacity = "1";
-  mainContainer.style.pointerEvents = "all";
-  loginShortcut.style.opacity = "1";
-  loginShortcut.style.pointerEvents = "all";
+      const targetId = btn.dataset.target;
 
-  subtitle.style.transform = "translateY(0)";
-  subtitle.classList.remove("glow");
-});
+      // active nav
+      Array.from(nav.querySelectorAll('button')).forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-// Login açma
-loginShortcut.addEventListener('click', () => {
-  mainContainer.style.opacity = "0";
-  mainContainer.style.pointerEvents = "none";
-  enterBtn.style.opacity = "0";
-  enterBtn.style.pointerEvents = "none";
-  loginShortcut.style.opacity = "0";
-  loginShortcut.style.pointerEvents = "none";
+      // active panel
+      panels.forEach(p => p.classList.remove('active'));
+      const targetPanel = document.getElementById(targetId);
+      if(targetPanel) targetPanel.classList.add('active');
 
-  subtitle.style.transform = "translateY(-150px)";
-  subtitle.classList.add("glow");
+      // topbar title/desc
+      if(targetId === 'dash'){
+        pageTitle.textContent = 'Dashboard';
+        pageDesc.textContent = 'Project Z sistem durumunu görüntülüyorsun';
+      } else if(targetId === 'users'){
+        pageTitle.textContent = 'Kullanıcılar';
+        pageDesc.textContent = 'Kullanıcı listesi ve durumlar';
+      } else if(targetId === 'settings'){
+        pageTitle.textContent = 'Ayarlar';
+        pageDesc.textContent = 'Panel yapılandırma seçenekleri';
+      }
 
-  loginForm.style.bottom = "175px";
-  loginForm.style.opacity = "1";
-  loginForm.style.pointerEvents = "all";
-});
+      // mobilde menüyü kapat
+      closeSidebar();
+    });
 
-// Login geri
-loginBack.addEventListener('click', () => {
-  loginForm.style.bottom = "-400px";
-  loginForm.style.opacity = "0";
-  loginForm.style.pointerEvents = "none";
+    // Logout
+    logoutBtn.addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
 
-  mainContainer.style.opacity = "1";
-  mainContainer.style.pointerEvents = "all";
-  loginShortcut.style.opacity = "1";
-  loginShortcut.style.pointerEvents = "all";
+    refreshBtn.addEventListener('click', () => {
+      // demo: statları ufak oynat
+      const active = document.getElementById('statActive');
+      const total = document.getElementById('statTotal');
 
-  subtitle.style.transform = "translateY(0)";
-  subtitle.classList.remove("glow");
-});
-</script>
+      const a = 110 + Math.floor(Math.random() * 60);
+      const t = 900 + Math.floor(Math.random() * 400);
 
+      active.textContent = String(a);
+      total.textContent = t.toLocaleString('tr-TR');
+    });
+
+    // Ayar kaydet (demo)
+    saveSettings.addEventListener('click', () => {
+      const v = titleInput.value.trim() || 'Project Z Yönetim Paneli';
+      document.querySelector('.brand .title').textContent = v;
+      alert('Kaydedildi (demo).');
+    });
+
+    // Kullanıcı arama (demo - client-side filtre)
+    function filterUsers(){
+      const q = (userSearch.value || '').toLowerCase().trim();
+      const rows = Array.from(usersBody.querySelectorAll('tr'));
+      rows.forEach(r => {
+        const text = r.innerText.toLowerCase();
+        r.style.display = text.includes(q) ? '' : 'none';
+      });
+    }
+    userSearch.addEventListener('input', filterUsers);
+    clearSearch.addEventListener('click', () => {
+      userSearch.value = '';
+      filterUsers();
+    });
+
+    // Demo hızlı işlemler
+    addUserBtn.addEventListener('click', () => alert('Kullanıcı ekle (demo).'));
+    exportBtn.addEventListener('click', () => alert('Rapor al (demo).'));
+    alertBtn.addEventListener('click', () => alert('Bildirim testi (demo).'));
+  </script>
 </body>
 </html>
