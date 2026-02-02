@@ -6,54 +6,85 @@
 <title>Project Z - Giriş</title>
 <style>
 html, body {
-  margin: 0; padding: 0; height: 100%;
-  font-family: "Segoe UI", Roboto, sans-serif;
-  background: #000; color: #e8f0ff;
-  display: flex; justify-content: center; align-items: center;
-  overflow: hidden;
+  margin:0; padding:0; height:100%;
+  font-family:"Segoe UI", Roboto, sans-serif;
+  background:#000; color:#e8f0ff;
+  display:flex; justify-content:center; align-items:center;
+  overflow:hidden;
 }
 
+/* Arka plan glow */
 body::before {
-  content:""; position: fixed; inset: 0;
+  content:""; position:fixed; inset:0;
   background: radial-gradient(circle at center, #132a4a 0%, #0a1525 25%, #000 60%);
-  z-index: 0;
+  z-index:0;
 }
 body::after {
-  content:""; position: fixed; top:50%; left:50%;
+  content:""; position:fixed; top:50%; left:50%;
   width:300px; height:300px;
   transform:translate(-50%,-50%);
   background: radial-gradient(circle, rgba(90,150,255,0.18) 0%, rgba(0,0,0,0) 70%);
   filter: blur(60px); z-index:0;
 }
 
+/* Container */
 .container {
-  position: relative; z-index: 1; text-align:center;
-  background: rgba(15,28,48,0.85); padding: 30px 25px;
-  border-radius: 12px; box-shadow: 0 0 20px rgba(0,0,0,0.5); width:320px;
+  position:relative; z-index:1; text-align:center;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(15px);
+  border-radius:20px;
+  border: 2px solid rgba(50,150,255,0.6);
+  padding:40px 30px;
+  width:350px;
+  box-shadow:0 0 30px rgba(50,150,255,0.2);
 }
 
-h2 { margin-bottom:20px; font-size:22px; color:#f8fbff;
-text-shadow:0 0 6px rgba(255,255,255,0.35),0 0 14px rgba(180,210,255,0.25); }
+/* Başlık */
+h2 {
+  margin-bottom:25px;
+  font-size:24px;
+  color:#f8fbff;
+  text-shadow:0 0 6px rgba(90,150,255,0.4), 0 0 14px rgba(90,150,255,0.2);
+}
 
+/* Inputlar */
 input {
-  width:90%; padding:10px 12px; margin-bottom:15px;
-  border-radius:8px; border:none; outline:none; font-size:14px;
+  width:90%; padding:12px;
+  margin-bottom:15px;
+  border-radius:12px;
+  border:1px solid rgba(50,150,255,0.5);
+  background: rgba(0,0,0,0.5);
+  color:#e8f0ff;
+  outline:none;
+  font-size:14px;
+  transition: all 0.3s ease;
 }
 
+input:focus {
+  border-color: rgba(90,150,255,0.8);
+  box-shadow:0 0 8px rgba(90,150,255,0.4);
+}
+
+/* Butonlar */
 .btn {
   width:95%; padding:12px; font-size:14px; border-radius:30px;
   border:1px solid rgba(140,180,255,0.25);
-  background: rgba(15,28,48,0.6); color:#dfeaff;
-  cursor:pointer; margin-bottom:10px; transition:all 0.25s ease;
+  background: rgba(15,28,48,0.6);
+  color:#dfeaff; cursor:pointer;
+  margin-bottom:10px; transition: all 0.25s ease;
 }
 
-.btn:hover { background: rgba(140,180,255,0.08);
-border-color: rgba(140,180,255,0.55);
-box-shadow: 0 0 12px rgba(120,170,255,0.25); }
+.btn:hover {
+  background: rgba(140,180,255,0.08);
+  border-color: rgba(140,180,255,0.55);
+  box-shadow: 0 0 12px rgba(120,170,255,0.25);
+}
 
-.back { font-size:13px; color:#aabfff; cursor:pointer; display:block; margin-top:10px; text-decoration:underline; }
-
-.link { font-size:13px; color:#aabfff; cursor:pointer; display:block; margin-top:5px; text-decoration:underline; }
+/* Geri ve Kayıt linkleri */
+.back, .link {
+  font-size:13px; color:#aabfff;
+  cursor:pointer; display:block; margin-top:10px; text-decoration:underline;
+}
 </style>
 </head>
 <body>
@@ -66,13 +97,11 @@ box-shadow: 0 0 12px rgba(120,170,255,0.25); }
 </div>
 
 <script>
-document.getElementById('goBack').onclick = () => { window.location.href = 'index.html'; };
-document.getElementById('goRegister').onclick = () => { window.location.href = 'register.html'; };
-
-// Basit demo login
-document.getElementById('loginBtn').onclick = () => {
-  const username = document.getElementById('username').value;
-  if(username) alert('Giriş başarılı! (Demo)'); 
+document.getElementById('goBack').onclick = ()=>{window.location.href='index.html'};
+document.getElementById('goRegister').onclick = ()=>{window.location.href='register.html'};
+document.getElementById('loginBtn').onclick = ()=>{
+  const user=document.getElementById('username').value;
+  if(user) alert('Giriş başarılı! (Demo)');
   else alert('Kullanıcı adı boş olamaz!');
 };
 </script>
