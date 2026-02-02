@@ -3,103 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Z | Dedektiflik Merkezi</title>
+    <title>CASE: ZERO | Operasyon Merkezi</title>
     <style>
         :root {
-            --bg-color: #02050a;
-            --accent-blue: #1e3a8a;
-            --glow-color: rgba(30, 58, 138, 0.4);
-            --text-white: #f8fbff;
+            --bg: #000205;
+            --glow: rgba(30, 80, 200, 0.25);
+            --accent: #1e4ecf;
+            --text: #e0e6ed;
         }
 
         body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background-color: var(--bg-color);
-            font-family: 'Inter', -apple-system, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin: 0; padding: 0; height: 100%;
+            background: var(--bg);
+            font-family: 'Segoe UI', sans-serif;
+            color: var(--text);
             overflow: hidden;
-            color: var(--text-white);
+            display: flex; justify-content: center; align-items: center;
         }
 
-        /* Arka plandaki o meşhur mavi ışık */
-        .background-glow {
-            position: fixed;
-            width: 450px;
-            height: 450px;
-            background: radial-gradient(circle, var(--glow-color) 0%, rgba(0,0,0,0) 70%);
-            filter: blur(80px);
-            z-index: 0;
-        }
-
-        .content {
-            position: relative;
+        /* Arka Plan Glow */
+        .glow-bg {
+            position: absolute;
+            width: 350px; height: 350px;
+            background: radial-gradient(circle, var(--glow) 0%, rgba(0,0,0,0) 75%);
+            filter: blur(50px);
             z-index: 1;
-            text-align: center;
         }
 
-        .subtitle {
-            font-size: 14px;
-            letter-spacing: 5px;
-            color: rgba(255,255,255,0.4);
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
+        .container { position: relative; z-index: 2; text-align: center; width: 100%; max-width: 400px; padding: 20px; }
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 300;
-            margin-bottom: 40px;
-            text-shadow: 0 0 20px rgba(255,255,255,0.2);
-        }
+        h1 { font-weight: 300; letter-spacing: 2px; margin-bottom: 30px; font-size: 1.8rem; }
 
-        .btn-enter {
-            background: rgba(255, 255, 255, 0.03);
+        /* Küçük ve Şık Buton */
+        .btn-main {
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            padding: 15px 50px;
-            font-size: 14px;
-            letter-spacing: 3px;
-            border-radius: 50px;
+            color: #fff;
+            padding: 10px 30px;
+            font-size: 13px;
+            letter-spacing: 2px;
+            border-radius: 4px;
             cursor: pointer;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(10px);
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+        .btn-main:hover { background: #fff; color: #000; box-shadow: 0 0 15px rgba(255,255,255,0.3); }
+
+        /* Form Paneli (Başlangıçta Gizli) */
+        #auth-panel {
+            display: none;
+            background: rgba(5, 10, 20, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-top: 20px;
         }
 
-        .btn-enter:hover {
-            background: white;
-            color: black;
-            box-shadow: 0 0 30px rgba(255,255,255,0.2);
-            transform: translateY(-2px);
+        input {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 12px;
+            margin: 10px 0;
+            color: white;
+            border-radius: 4px;
+            box-sizing: border-box;
         }
 
-        /* Dekoratif çizgiler (Sadelik için) */
-        .line {
-            width: 50px;
-            height: 1px;
-            background: rgba(255,255,255,0.2);
-            margin: 20px auto;
-        }
+        .toggle-link { font-size: 12px; color: #888; cursor: pointer; text-decoration: underline; }
     </style>
 </head>
 <body>
 
-    <div class="background-glow"></div>
+    <div class="glow-bg"></div>
 
-    <div class="content">
-        <div class="subtitle">PROJECT Z</div>
-        <div class="line"></div>
-        <h1>Bir efsane olmaya hazır mısın?</h1>
-        <button class="btn-enter" onclick="startSystem()">SİSTEME GİRİŞ YAP</button>
+    <div class="container">
+        <div id="landing">
+            <p style="letter-spacing: 5px; opacity: 0.5; font-size: 12px;">PROJECT Z</p>
+            <h1>Dedektif olmaya hazır mısın?</h1>
+            <button class="btn-main" onclick="showAuth()">SİSTEME GİRİŞ SAĞLA</button>
+        </div>
+
+        <div id="auth-panel">
+            <h2 id="auth-title" style="font-weight: 300; margin-top: 0;">Giriş Yap</h2>
+            <input type="email" placeholder="E-posta Adresi">
+            <input type="password" placeholder="Şifre">
+            <div id="register-fields" style="display: none;">
+                <input type="text" placeholder="Dedektif Nickname (Örn: X-07)">
+            </div>
+            <button class="btn-main" style="width: 100%; margin-top: 10px;">DEVAM ET</button>
+            <p style="margin-top: 15px;">
+                <span class="toggle-link" onclick="toggleAuth()" id="toggle-text">Hesabın yok mu? Kayıt Ol</span>
+            </p>
+        </div>
     </div>
 
     <script>
-        function startSystem() {
-            // Buraya tıklayınca ne olacağını sonraki aşamada yazacağız (Kayıt ekranına geçiş)
-            alert("Sistem yükleniyor... Kimlik doğrulama başlatıldı.");
+        function showAuth() {
+            document.getElementById('landing').style.display = 'none';
+            document.getElementById('auth-panel').style.display = 'block';
+        }
+
+        function toggleAuth() {
+            const title = document.getElementById('auth-title');
+            const regFields = document.getElementById('register-fields');
+            const toggleText = document.getElementById('toggle-text');
+
+            if (regFields.style.display === 'none') {
+                title.innerText = 'Kayıt Ol';
+                regFields.style.display = 'block';
+                toggleText.innerText = 'Zaten üye misin? Giriş Yap';
+            } else {
+                title.innerText = 'Giriş Yap';
+                regFields.style.display = 'none';
+                toggleText.innerText = 'Hesabın yok mu? Kayıt Ol';
+            }
         }
     </script>
 </body>
