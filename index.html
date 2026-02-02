@@ -1,46 +1,44 @@
 <!DOCTYPE html>
+<html lang="tr" style="background:#000;">
 <head>
 <meta charset="UTF-8" />
-
-<!-- 🔥 KRİTİK META TAGLER -->
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#0a1a2f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
 <title>Project Z</title>
 
 <style>
 html, body {
   margin: 0;
   padding: 0;
-  background: #000;
   height: 100%;
+  background: #000;
   overscroll-behavior: none;
+  font-family: "Segoe UI", Roboto, sans-serif;
 }
 
-/* Gerçek tam ekran katman */
+/* 🌌 GERÇEK ARKA PLAN (MAVİ GERİ GELDİ) */
 .bg {
   position: fixed;
-  top: -10vh;
-  bottom: -10vh;
+  top: -15vh;
+  bottom: -15vh;
   left: 0;
   right: 0;
-  background: radial-gradient(circle at center, #0a1a2f 0%, #05070d 60%, #000 100%);
+  background: radial-gradient(circle at center, #0f223d 0%, #08121f 45%, #000 80%);
   z-index: -3;
 }
 
-/* Glow */
+/* 🔵 MAVİ IŞIK GLOW */
 .glow {
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 450px;
-  height: 450px;
+  width: 500px;
+  height: 500px;
   transform: translate(-50%, -50%);
-  background: rgba(120, 170, 255, 0.12);
-  border-radius: 50%;
-  filter: blur(130px);
+  background: radial-gradient(circle, rgba(90,150,255,0.25) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(120px);
   z-index: -2;
 }
 
@@ -53,7 +51,6 @@ body {
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
   overflow: hidden;
-  font-family: "Segoe UI", Roboto, sans-serif;
 }
 
 .container {
