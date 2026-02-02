@@ -44,7 +44,7 @@ body::after {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -170px); /* sen -170 yaptın zaten */
   text-align: center;
   z-index: 1;
   transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
@@ -104,6 +104,48 @@ h1 {
 .btn:active {
   transform: scale(0.97);
 }
+
+/* Register form */
+.registerForm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 350px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(50,150,255,0.6);
+  border-radius: 20px;
+  padding: 30px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.8s ease;
+  z-index:2;
+  text-align: center;
+}
+
+.registerForm input {
+  width: 90%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(50,150,255,0.5);
+  background: rgba(0,0,0,0.35);
+  color: #e8f0ff;
+  font-size: 14px;
+  outline:none;
+  transition: all 0.3s ease;
+}
+
+.registerForm input:focus {
+  border-color: rgba(90,150,255,0.8);
+  box-shadow:0 0 8px rgba(90,150,255,0.4);
+}
+
+.registerForm .btn {
+  width: 95%;
+  margin-top: 10px;
+}
 </style>
 </head>
 
@@ -114,11 +156,21 @@ h1 {
   <button class="btn" id="enterBtn">SİSTEME GİR</button>
 </div>
 
+<!-- Register Form -->
+<div class="registerForm" id="registerForm">
+  <input type="text" placeholder="İsim Soyisim">
+  <input type="text" placeholder="Kullanıcı Adı">
+  <input type="email" placeholder="E-posta">
+  <input type="date" placeholder="Doğum Tarihi">
+  <button class="btn">Kayıt Ol</button>
+</div>
+
 <script>
 const enterBtn = document.getElementById('enterBtn');
 const mainContainer = document.getElementById('mainContainer');
 const subtitle = document.getElementById('subtitle');
 const mainTitle = document.getElementById('mainTitle');
+const registerForm = document.getElementById('registerForm');
 
 enterBtn.addEventListener('click', () => {
   // Buton fade ile kaybolsun
@@ -126,12 +178,16 @@ enterBtn.addEventListener('click', () => {
   enterBtn.style.pointerEvents = "none";
 
   // Yazılar ve container yukarıya hareket
-  mainContainer.style.transform = "translate(-50%, -170%)";
+  mainContainer.style.transform = "translate(-50%, -170px)";
 
   // Glow efekti ve hafif büyüme
   subtitle.classList.add("glow");
   mainTitle.classList.add("glow");
   mainTitle.style.transform = "scale(1.05)";
+
+  // Register form açılacak
+  registerForm.style.opacity = "1";
+  registerForm.style.pointerEvents = "all";
 });
 </script>
 </body>
