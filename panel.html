@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f223d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Project Z Panel</title>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background: #000;
+  color: #dfeaff;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #132a4a 0%, #0a1525 25%, #000 60%);
+  z-index: 0;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(90,150,255,0.18) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(60px);
+  z-index: 0;
+}
+
+/* Panel container */
+.panelContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1;
+  width: 90%;
+  max-width: 500px;
+}
+
+.panelContainer h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 6px rgba(255,255,255,0.3), 0 0 14px rgba(90,150,255,0.2);
+}
+
+.panelContainer p {
+  font-size: 16px;
+  margin-bottom: 30px;
+  color: rgba(223,234,255,0.8);
+}
+
+.btn {
+  padding: 12px 30px;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  border-radius: 25px;
+  border: 1px solid rgba(140,180,255,0.25);
+  background: rgba(15,28,48,0.6);
+  color: #dfeaff;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: all 0.3s ease, transform 0.3s ease;
+  text-decoration: none;
+}
+.btn:hover {
+  background: rgba(15,28,48,0.8);
+  border-color: rgba(140,180,255,0.5);
+  transform: translateY(-2px);
+}
+</style>
+</head>
+<body>
+
+<div class="panelContainer">
+  <h1>Project Z Panel</h1>
+  <p>Hoşgeldin! Demo paneline erişim sağlandı.</p>
+  <button class="btn" id="logoutBtn">Çıkış Yap</button>
+</div>
+
+<script>
+// Login kontrolü
+if(localStorage.getItem('loggedIn') !== 'true'){
+  window.location.href = 'index.html';
+}
+
+const logoutBtn = document.getElementById('logoutBtn');
+
+logoutBtn.addEventListener('click', () => {
+  localStorage.removeItem('loggedIn');
+  window.location.href = 'index.html';
+});
+</script>
+
+</body>
+</html>
