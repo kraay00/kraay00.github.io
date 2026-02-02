@@ -1,211 +1,103 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0f223d">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Project Z</title>
-
 <style>
 html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background: #000;
-  font-family: "Segoe UI", Roboto, sans-serif;
-  overflow: hidden;
+  margin:0; padding:0; height:100%;
+  font-family:"Segoe UI", Roboto, sans-serif;
+  background:#000; color:#e8f0ff;
+  overflow:hidden;
+  display:flex; justify-content:center; align-items:center;
 }
 
-/* 🌌 ARKA PLAN - DAHA KOYU VE MERKEZİ */
+/* Arka plan glow */
 body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
+  content:""; position:fixed; inset:0;
   background: radial-gradient(circle at center, #132a4a 0%, #0a1525 25%, #000 60%);
-  z-index: 0;
+  z-index:0;
 }
-
-/* 🔵 MERKEZDEKİ PARLAMA (GLOW) */
 body::after {
-  content: "";
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 300px; 
-  height: 300px;
-  transform: translate(-50%, -50%);
+  content:""; position:fixed; top:50%; left:50%;
+  width:300px; height:300px;
+  transform:translate(-50%,-50%);
   background: radial-gradient(circle, rgba(90,150,255,0.18) 0%, rgba(0,0,0,0) 70%);
-  filter: blur(60px);
-  z-index: 0;
+  filter: blur(60px); z-index:0;
 }
 
-/* Temel container */
-body {
-  min-height: 100svh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-  color: #e8f0ff;
-}
-
+/* Container */
 .container {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  max-width: 520px;
-  padding: 20px;
-  transition: all 0.6s ease;
-}
-
-.subtitle {
-  font-size: 13px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.35);
-  margin-bottom: 14px;
-}
-
-h1 {
-  font-size: 34px;
-  font-weight: 700;
-  margin-bottom: 28px;
-  color: #f8fbff;
-  text-shadow:
-    0 0 6px rgba(255, 255, 255, 0.35),
-    0 0 14px rgba(180, 210, 255, 0.25);
-}
-
-.btn {
-  padding: 13px 42px;
-  font-size: 13.5px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  border-radius: 30px;
-  border: 1px solid rgba(140, 180, 255, 0.25);
-  background: rgba(15, 28, 48, 0.6);
-  color: #dfeaff;
-  cursor: pointer;
-  backdrop-filter: blur(4px);
-  transition: all 0.25s ease;
-  text-decoration: none;
-  display: inline-block;
-  position: relative;
-  z-index: 1;
-}
-
-.btn:hover {
-  background: rgba(140, 180, 255, 0.08);
-  border-color: rgba(140, 180, 255, 0.55);
-  box-shadow: 0 0 12px rgba(120, 170, 255, 0.25);
-}
-
-.btn:active {
-  transform: scale(0.97);
-}
-
-/* Yarım elips üstte */
-.ellipse {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 300px;
-  height: 150px;
-  background: rgba(90,150,255,0.2);
-  border-radius: 150px 150px 0 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  font-weight: bold;
-  font-size: 24px;
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0);
+  position:relative; z-index:1; text-align:center;
   transition: all 0.8s ease;
-  z-index:2;
+}
+
+/* Başlıklar */
+.subtitle {
+  font-size: 13px; letter-spacing:3px; text-transform:uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom:14px;
+  transition: opacity 0.5s ease;
+}
+h1 {
+  font-size:34px; font-weight:700; margin-bottom:28px;
+  color:#f8fbff; text-shadow:0 0 6px rgba(255,255,255,0.35), 0 0 14px rgba(180,210,255,0.25);
+  transition: opacity 0.5s ease;
+}
+
+/* Buton / animasyonlu elips */
+#enterBtn {
+  padding:13px 42px; font-size:13.5px; letter-spacing:2px;
+  text-transform:uppercase; border-radius:30px;
+  border:1px solid rgba(140,180,255,0.25); background: rgba(15,28,48,0.6);
+  color:#dfeaff; cursor:pointer; backdrop-filter: blur(4px);
+  transition: all 0.8s ease, border-radius 0.8s ease;
+  position:relative; z-index:2;
 }
 
 /* Login panel */
 .loginPanel {
-  position: absolute;
-  bottom: -400px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 360px;
-  background: rgba(0,0,0,0.35);
-  backdrop-filter: blur(15px);
-  border: 2px solid rgba(50,150,255,0.6);
-  border-radius: 20px;
-  padding: 30px;
-  box-shadow: 0 0 30px rgba(50,150,255,0.2);
-  opacity:0;
+  position: absolute; top:50%; left:50%;
+  transform: translate(-50%, -50%);
+  width:360px; background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(15px); border:2px solid rgba(50,150,255,0.6);
+  border-radius:20px; padding:30px; box-shadow:0 0 30px rgba(50,150,255,0.2);
+  opacity:0; pointer-events:none;
   transition: all 0.8s ease;
-  z-index:1;
+  z-index:3;
 }
-
 .loginPanel input {
-  width: 90%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 12px;
-  border:1px solid rgba(50,150,255,0.5);
-  background: rgba(0,0,0,0.35);
-  color: #e8f0ff;
-  font-size: 14px;
-  outline:none;
-  transition: all 0.3s ease;
+  width: 90%; padding:12px; margin-bottom:15px;
+  border-radius:12px; border:1px solid rgba(50,150,255,0.5);
+  background: rgba(0,0,0,0.35); color:#e8f0ff; font-size:14px;
+  outline:none; transition: all 0.3s ease;
 }
-
 .loginPanel input:focus {
   border-color: rgba(90,150,255,0.8);
   box-shadow:0 0 8px rgba(90,150,255,0.4);
 }
+.loginPanel .btn { width:95%; margin-top:10px; }
 
-.loginPanel .btn {
-  width: 95%;
-  margin-top: 10px;
-}
-
-/* Geri dön butonu */
+/* Geri dön */
 .backBtn {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  border: 2px solid rgba(50,150,255,0.6);
-  background: rgba(0,0,0,0.35);
-  color: #dfeaff;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  opacity:0;
-  transition: all 0.5s ease;
-  z-index:3;
+  position: absolute; top:15px; left:15px;
+  width:35px; height:35px; border-radius:50%;
+  border:2px solid rgba(50,150,255,0.6); background: rgba(0,0,0,0.35);
+  color:#dfeaff; font-weight:bold; cursor:pointer; display:flex;
+  align-items:center; justify-content:center; font-size:18px;
+  opacity:0; transition: all 0.5s ease; z-index:4;
 }
-.backBtn:hover {
-  box-shadow:0 0 10px rgba(50,150,255,0.5);
-  border-color: rgba(90,150,255,0.8);
-}
+.backBtn:hover { box-shadow:0 0 10px rgba(50,150,255,0.5); border-color: rgba(90,150,255,0.8); }
+
 </style>
 </head>
-
 <body>
 
 <div class="container" id="mainContainer">
-  <div class="subtitle">PROJECT Z</div>
-  <h1>İlk davana hazır mısın?</h1>
-  <button class="btn" id="enterBtn">SİSTEME GİR</button>
+  <div class="subtitle" id="subtitle">PROJECT Z</div>
+  <h1 id="mainTitle">İlk davana hazır mısın?</h1>
+  <button id="enterBtn">SİSTEME GİR</button>
 </div>
-
-<div class="ellipse" id="ellipse">Project Z</div>
 
 <div class="loginPanel" id="loginPanel">
   <input type="text" placeholder="Kullanıcı Adı">
@@ -217,36 +109,56 @@ h1 {
 
 <script>
 const enterBtn = document.getElementById('enterBtn');
-const ellipse = document.getElementById('ellipse');
+const mainContainer = document.getElementById('mainContainer');
+const subtitle = document.getElementById('subtitle');
+const mainTitle = document.getElementById('mainTitle');
 const loginPanel = document.getElementById('loginPanel');
 const backBtn = document.getElementById('backBtn');
-const mainContainer = document.getElementById('mainContainer');
 
 enterBtn.addEventListener('click', ()=>{
-  // Butonu yukarı taşı
-  mainContainer.style.transform = "translateY(-150px)";
-  mainContainer.style.transition = "all 0.8s ease";
+  // Ana container elemanlarını gizle
+  subtitle.style.opacity = "0";
+  mainTitle.style.opacity = "0";
   
-  // Elips açılacak
-  ellipse.style.opacity = "1";
-  ellipse.style.transform = "translate(-50%, 0) scale(1)";
+  // Buton elips gibi büyüyüp tüm ekranı kaplasın
+  enterBtn.style.position = "absolute";
+  enterBtn.style.top = "50%";
+  enterBtn.style.left = "50%";
+  enterBtn.style.transform = "translate(-50%,-50%)";
+  enterBtn.style.width = "100%";
+  enterBtn.style.height = "100%";
+  enterBtn.style.borderRadius = "0";
+  enterBtn.style.fontSize = "40px";
+  enterBtn.style.border = "none";
   
-  // Login panel açılacak
-  loginPanel.style.bottom = "50px";
-  loginPanel.style.opacity = "1";
-  
-  // Geri dön butonu görünür
-  backBtn.style.opacity = "1";
+  // Login panel aç
+  setTimeout(()=>{
+    loginPanel.style.opacity = "1";
+    loginPanel.style.pointerEvents = "auto";
+    backBtn.style.opacity = "1";
+  }, 800);
 });
 
+// Geri dön
 backBtn.addEventListener('click', ()=>{
-  // Geri animasyon
-  mainContainer.style.transform = "translateY(0)";
-  ellipse.style.opacity = "0";
-  ellipse.style.transform = "translate(-50%, -50%) scale(0)";
-  loginPanel.style.bottom = "-400px";
+  // Login panel kapansın
   loginPanel.style.opacity = "0";
+  loginPanel.style.pointerEvents = "none";
   backBtn.style.opacity = "0";
+  
+  // Butonu eski haline getir
+  enterBtn.style.width = "";
+  enterBtn.style.height = "";
+  enterBtn.style.top = "";
+  enterBtn.style.left = "";
+  enterBtn.style.transform = "";
+  enterBtn.style.borderRadius = "30px";
+  enterBtn.style.fontSize = "13.5px";
+  enterBtn.style.border = "1px solid rgba(140,180,255,0.25)";
+  
+  // Container elemanları geri gelsin
+  subtitle.style.opacity = "1";
+  mainTitle.style.opacity = "1";
 });
 </script>
 
