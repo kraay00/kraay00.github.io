@@ -44,13 +44,12 @@ body::after {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -170px); /* sen -170 yaptın zaten */
+  transform: translate(-50%, -50%);
   text-align: center;
   z-index: 1;
   transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-/* Yazılar */
 .subtitle {
   font-size: 13px;
   letter-spacing: 3px;
@@ -66,10 +65,10 @@ h1 {
   margin-bottom: 28px;
   color: #f8fbff;
   text-shadow: 0 0 6px rgba(255,255,255,0.35), 0 0 14px rgba(180,210,255,0.25);
-  transition: all 1s ease, text-shadow 1s ease;
+  transition: all 1s ease, transform 1s ease;
 }
 
-/* Glow efekt animasyonu */
+/* Glow efekti */
 .glow {
   color: #d0e6ff;
   text-shadow: 
@@ -95,33 +94,17 @@ h1 {
   display: inline-block;
 }
 
-.btn:hover {
-  background: rgba(140, 180, 255, 0.08);
-  border-color: rgba(140, 180, 255, 0.55);
-  box-shadow: 0 0 12px rgba(120, 170, 255, 0.25);
-}
-
-.btn:active {
-  transform: scale(0.97);
-}
-
 /* Register form */
 .registerForm {
   position: absolute;
-  top: 50%;
   left: 50%;
+  bottom: -300px;
+  transform: translateX(-50%);
   width: 350px;
-  transform: translate(-50%, -50%);
-  background: rgba(0,0,0,0.35);
-  backdrop-filter: blur(15px);
-  border: 2px solid rgba(50,150,255,0.6);
-  border-radius: 20px;
-  padding: 30px;
+  text-align: center;
   opacity: 0;
   pointer-events: none;
   transition: all 0.8s ease;
-  z-index:2;
-  text-align: center;
 }
 
 .registerForm input {
@@ -156,7 +139,7 @@ h1 {
   <button class="btn" id="enterBtn">SİSTEME GİR</button>
 </div>
 
-<!-- Register Form -->
+<!-- Register form -->
 <div class="registerForm" id="registerForm">
   <input type="text" placeholder="İsim Soyisim">
   <input type="text" placeholder="Kullanıcı Adı">
@@ -173,19 +156,17 @@ const mainTitle = document.getElementById('mainTitle');
 const registerForm = document.getElementById('registerForm');
 
 enterBtn.addEventListener('click', () => {
-  // Buton fade ile kaybolsun
+  // Buton kaybolsun
   enterBtn.style.opacity = "0";
   enterBtn.style.pointerEvents = "none";
 
-  // Yazılar ve container yukarıya hareket
-  mainContainer.style.transform = "translate(-50%, -170px)";
-
-  // Glow efekti ve hafif büyüme
+  // Yazılar yukarı çıkacak
+  mainContainer.style.transform = "translate(-50%, -250px)";
   subtitle.classList.add("glow");
   mainTitle.classList.add("glow");
-  mainTitle.style.transform = "scale(1.05)";
 
-  // Register form açılacak
+  // Register form alt kısımdan çıkacak
+  registerForm.style.bottom = "50px";
   registerForm.style.opacity = "1";
   registerForm.style.pointerEvents = "all";
 });
