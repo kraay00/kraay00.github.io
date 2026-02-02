@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0f223d">
+<meta name="theme-color" content="#0a0f18">
 <title>Project Z - Panel</title>
 
 <style>
@@ -13,698 +13,571 @@
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
-  background: #050a12;
-  font-family: "Segoe UI", Roboto, sans-serif;
-  color: #e0eaff;
-  overflow-x: hidden;
+:root {
+  --bg-primary: #0a0f18;
+  --bg-secondary: #0f1520;
+  --bg-card: #141c2b;
+  --bg-hover: #1a2435;
+  --border: #1e2a3d;
+  --border-light: #2a3a52;
+  --text-primary: #e8edf5;
+  --text-secondary: #8a96a8;
+  --text-muted: #5a6578;
+  --accent: #4a7cff;
+  --accent-dim: rgba(74, 124, 255, 0.15);
+  --success: #3daa6d;
+  --warning: #d4a84b;
 }
 
-/* Arkaplan */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(ellipse at top, #132a4a 0%, #0a1525 30%, #050a12 70%);
-  z-index: -2;
+html, body {
+  height: 100%;
+  background: var(--bg-primary);
+  font-family: 'Inter', 'Segoe UI', -apple-system, sans-serif;
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+/* Layout */
+.app {
+  display: flex;
+  min-height: 100vh;
 }
 
 /* Sidebar */
 .sidebar {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 260px;
-  height: 100%;
-  background: rgba(10, 20, 35, 0.95);
-  border-right: 1px solid rgba(90, 150, 255, 0.1);
-  backdrop-filter: blur(10px);
-  z-index: 100;
+  width: 240px;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  transition: transform 0.4s ease;
+  position: fixed;
+  height: 100vh;
+  z-index: 100;
+  transition: transform 0.3s ease;
 }
 
 .sidebar-header {
-  padding: 25px 20px;
-  border-bottom: 1px solid rgba(90, 150, 255, 0.1);
-  text-align: center;
+  padding: 24px 20px;
+  border-bottom: 1px solid var(--border);
 }
 
-.sidebar-header h2 {
-  font-size: 18px;
-  letter-spacing: 4px;
-  color: #d0e6ff;
-  text-shadow: 0 0 15px rgba(90, 150, 255, 0.5);
+.logo {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--text-primary);
 }
 
-.sidebar-header span {
+.logo-sub {
   font-size: 10px;
-  color: rgba(255,255,255,0.3);
-  letter-spacing: 2px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-top: 4px;
 }
 
-/* Profil Kartı */
-.profile-card {
-  padding: 25px 20px;
-  border-bottom: 1px solid rgba(90, 150, 255, 0.1);
-  text-align: center;
+/* Profile Mini */
+.profile-mini {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .profile-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #1a3a5c 0%, #0d1f33 100%);
-  border: 2px solid rgba(90, 150, 255, 0.3);
-  margin: 0 auto 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
+  font-size: 16px;
+  color: var(--text-secondary);
   overflow: hidden;
-}
-
-.profile-avatar:hover {
-  border-color: rgba(90, 150, 255, 0.6);
-  box-shadow: 0 0 20px rgba(90, 150, 255, 0.3);
 }
 
 .profile-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
+}
+
+.profile-info {
+  flex: 1;
+  min-width: 0;
 }
 
 .profile-name {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .profile-rank {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
-  background: rgba(90, 150, 255, 0.15);
-  border-radius: 20px;
   font-size: 11px;
-  color: #8bb8ff;
-  letter-spacing: 1px;
+  color: var(--text-muted);
 }
 
-.profile-stats {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 15px;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-value {
-  font-size: 20px;
-  font-weight: 700;
-  color: #fff;
-}
-
-.stat-label {
-  font-size: 10px;
-  color: rgba(255,255,255,0.4);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* Menü */
-.sidebar-menu {
+/* Navigation */
+.nav {
   flex: 1;
-  padding: 20px 0;
+  padding: 16px 0;
   overflow-y: auto;
 }
 
-.menu-item {
+.nav-section {
+  margin-bottom: 8px;
+}
+
+.nav-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  padding: 12px 20px 8px;
+  text-transform: uppercase;
+}
+
+.nav-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 25px;
-  color: rgba(255,255,255,0.6);
+  gap: 10px;
+  padding: 10px 20px;
+  color: var(--text-secondary);
   text-decoration: none;
-  font-size: 14px;
-  transition: all 0.3s ease;
+  font-size: 13px;
   cursor: pointer;
-  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  border-left: 2px solid transparent;
 }
 
-.menu-item:hover {
-  background: rgba(90, 150, 255, 0.1);
-  color: #fff;
+.nav-item:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
 }
 
-.menu-item.active {
-  background: rgba(90, 150, 255, 0.15);
-  color: #8bb8ff;
-  border-left-color: #5a96ff;
+.nav-item.active {
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-left-color: var(--accent);
 }
 
-.menu-item i {
-  font-size: 18px;
-  width: 24px;
-  text-align: center;
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.7;
 }
 
-.menu-divider {
-  height: 1px;
-  background: rgba(90, 150, 255, 0.1);
-  margin: 15px 20px;
+.nav-item.active .nav-icon {
+  opacity: 1;
 }
 
 /* Sidebar Footer */
 .sidebar-footer {
-  padding: 20px;
-  border-top: 1px solid rgba(90, 150, 255, 0.1);
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
 }
 
 .logout-btn {
   width: 100%;
-  padding: 12px;
-  background: rgba(255, 80, 80, 0.1);
-  border: 1px solid rgba(255, 80, 80, 0.2);
-  border-radius: 10px;
-  color: #ff8080;
-  font-size: 13px;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .logout-btn:hover {
-  background: rgba(255, 80, 80, 0.2);
-  border-color: rgba(255, 80, 80, 0.4);
+  background: rgba(255, 80, 80, 0.1);
+  border-color: rgba(255, 80, 80, 0.3);
+  color: #ff6b6b;
 }
 
-/* Ana İçerik */
-.main-content {
-  margin-left: 260px;
-  padding: 30px;
+/* Main Content */
+.main {
+  flex: 1;
+  margin-left: 240px;
   min-height: 100vh;
 }
 
 /* Header */
-.content-header {
+.header {
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  background: var(--bg-secondary);
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
-.content-header h1 {
-  font-size: 28px;
+.header-title {
+  font-size: 18px;
   font-weight: 600;
-  color: #fff;
 }
 
-.header-actions {
+.header-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Code Input */
+.code-box {
   display: flex;
-  gap: 15px;
+  gap: 8px;
 }
 
-/* Kod Giriş Kutusu */
-.code-input-box {
-  display: flex;
-  gap: 10px;
-}
-
-.code-input-box input {
-  width: 200px;
-  padding: 12px 18px;
-  background: rgba(10, 20, 35, 0.8);
-  border: 1px solid rgba(90, 150, 255, 0.2);
-  border-radius: 12px;
-  color: #fff;
-  font-size: 14px;
+.code-input {
+  width: 180px;
+  padding: 10px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-family: 'SF Mono', 'Consolas', monospace;
   letter-spacing: 2px;
   text-transform: uppercase;
   outline: none;
-  transition: all 0.3s ease;
+  transition: border-color 0.2s ease;
 }
 
-.code-input-box input:focus {
-  border-color: rgba(90, 150, 255, 0.5);
-  box-shadow: 0 0 15px rgba(90, 150, 255, 0.2);
+.code-input:focus {
+  border-color: var(--accent);
 }
 
-.code-input-box input::placeholder {
-  color: rgba(255,255,255,0.3);
-  letter-spacing: 1px;
+.code-input::placeholder {
+  color: var(--text-muted);
+  letter-spacing: 0;
   text-transform: none;
+  font-family: inherit;
 }
 
-.activate-btn {
-  padding: 12px 25px;
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+.btn-primary {
+  padding: 10px 20px;
+  background: var(--accent);
   border: none;
-  border-radius: 12px;
+  border-radius: 8px;
   color: #fff;
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #5a8aff;
+}
+
+/* Content Area */
+.content {
+  padding: 32px;
+}
+
+/* Page Sections */
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+/* Welcome Card */
+.welcome-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 32px;
+}
+
+.welcome-title {
+  font-size: 20px;
   font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.welcome-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  max-width: 500px;
+}
+
+/* Stats Row */
+.stats-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.stat-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 24px;
+  text-align: center;
+  min-width: 100px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+/* Section Header */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.section-link {
+  font-size: 12px;
+  color: var(--accent);
+  text-decoration: none;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
-.activate-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+.section-link:hover {
+  text-decoration: underline;
 }
 
-/* Kartlar Grid */
-.cards-grid {
+/* Case Cards */
+.case-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
-  margin-bottom: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
 }
 
-/* Dava Kartı */
 .case-card {
-  background: rgba(10, 20, 35, 0.8);
-  border: 1px solid rgba(90, 150, 255, 0.15);
-  border-radius: 16px;
-  padding: 25px;
-  transition: all 0.4s ease;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-
-.case-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #5a96ff, #a855f7);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .case-card:hover {
-  border-color: rgba(90, 150, 255, 0.3);
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-}
-
-.case-card:hover::before {
-  opacity: 1;
+  border-color: var(--border-light);
+  background: var(--bg-hover);
 }
 
 .case-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
-.case-number {
+.case-id {
   font-size: 11px;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 2px;
+  color: var(--text-muted);
+  font-family: 'SF Mono', 'Consolas', monospace;
 }
 
 .case-status {
-  padding: 5px 12px;
-  border-radius: 20px;
   font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 1px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .case-status.active {
-  background: rgba(34, 197, 94, 0.2);
-  color: #4ade80;
+  background: rgba(61, 170, 109, 0.15);
+  color: var(--success);
 }
 
 .case-status.solved {
-  background: rgba(90, 150, 255, 0.2);
-  color: #8bb8ff;
+  background: var(--accent-dim);
+  color: var(--accent);
 }
 
 .case-status.locked {
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255,255,255,0.4);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
 }
 
 .case-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  margin-bottom: 10px;
-  color: #fff;
+  margin-bottom: 8px;
+  color: var(--text-primary);
 }
 
 .case-desc {
   font-size: 13px;
-  color: rgba(255,255,255,0.5);
+  color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 20px;
 }
 
-.case-meta {
+.case-footer {
   display: flex;
   gap: 20px;
-  padding-top: 15px;
-  border-top: 1px solid rgba(90, 150, 255, 0.1);
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
 }
 
-.meta-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.case-meta {
   font-size: 12px;
-  color: rgba(255,255,255,0.5);
+  color: var(--text-muted);
 }
 
-.meta-item span {
-  color: #8bb8ff;
+.case-meta span {
+  color: var(--text-secondary);
 }
 
-/* Takım Avatarları */
-.team-avatars {
-  display: flex;
-  margin-left: auto;
-}
-
-.team-avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #1a3a5c 0%, #0d1f33 100%);
-  border: 2px solid #0a1525;
-  margin-left: -10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-}
-
-.team-avatar:first-child {
-  margin-left: 0;
-}
-
-.team-avatar.more {
-  background: rgba(90, 150, 255, 0.3);
-  font-size: 10px;
-  color: #fff;
-}
-
-/* Bölüm Başlıkları */
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 40px 0 20px;
-}
-
-.section-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.section-title::before {
-  content: "";
-  width: 4px;
-  height: 20px;
-  background: linear-gradient(180deg, #5a96ff, #a855f7);
-  border-radius: 2px;
-}
-
-.view-all {
-  font-size: 13px;
-  color: #5a96ff;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.view-all:hover {
-  color: #8bb8ff;
-}
-
-/* Liderlik Tablosu */
+/* Leaderboard */
 .leaderboard {
-  background: rgba(10, 20, 35, 0.8);
-  border: 1px solid rgba(90, 150, 255, 0.15);
-  border-radius: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
   overflow: hidden;
 }
 
-.leaderboard-header {
+.lb-header {
   display: grid;
-  grid-template-columns: 60px 1fr 100px 100px 100px;
-  padding: 15px 20px;
-  background: rgba(90, 150, 255, 0.1);
-  font-size: 11px;
-  color: rgba(255,255,255,0.5);
+  grid-template-columns: 50px 1fr 80px 80px;
+  padding: 14px 20px;
+  background: var(--bg-secondary);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
-.leaderboard-row {
+.lb-row {
   display: grid;
-  grid-template-columns: 60px 1fr 100px 100px 100px;
-  padding: 15px 20px;
+  grid-template-columns: 50px 1fr 80px 80px;
+  padding: 14px 20px;
   align-items: center;
-  border-bottom: 1px solid rgba(90, 150, 255, 0.08);
-  transition: background 0.3s ease;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s ease;
 }
 
-.leaderboard-row:hover {
-  background: rgba(90, 150, 255, 0.05);
-}
-
-.leaderboard-row:last-child {
+.lb-row:last-child {
   border-bottom: none;
 }
 
-.rank-number {
-  font-size: 16px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.3);
+.lb-row:hover {
+  background: var(--bg-hover);
 }
 
-.rank-number.top-1 { color: #ffd700; }
-.rank-number.top-2 { color: #c0c0c0; }
-.rank-number.top-3 { color: #cd7f32; }
+.lb-rank {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
 
-.user-info {
+.lb-rank.gold { color: #d4a84b; }
+.lb-rank.silver { color: #a8b4c4; }
+.lb-rank.bronze { color: #c4956a; }
+
+.lb-user {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.user-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #1a3a5c 0%, #0d1f33 100%);
+.lb-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--bg-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 12px;
+  color: var(--text-muted);
 }
 
-.user-name {
-  font-size: 14px;
+.lb-name {
+  font-size: 13px;
   font-weight: 500;
 }
 
-.user-rank-badge {
+.lb-badge {
   font-size: 10px;
-  color: rgba(255,255,255,0.4);
+  color: var(--text-muted);
 }
 
-.stat-cell {
-  font-size: 14px;
-  color: rgba(255,255,255,0.7);
+.lb-stat {
+  font-size: 13px;
+  color: var(--text-secondary);
   text-align: center;
 }
 
-.stat-cell.highlight {
-  color: #5a96ff;
-  font-weight: 600;
-}
-
-/* Modal */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(5px);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.modal-overlay.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.modal {
-  background: rgba(15, 30, 50, 0.98);
-  border: 1px solid rgba(90, 150, 255, 0.2);
-  border-radius: 20px;
-  width: 90%;
-  max-width: 500px;
-  padding: 30px;
-  transform: scale(0.9);
-  transition: transform 0.3s ease;
-}
-
-.modal-overlay.active .modal {
-  transform: scale(1);
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-}
-
-.modal-title {
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.modal-close {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  color: #fff;
-  font-size: 18px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.modal-close:hover {
-  background: rgba(255, 80, 80, 0.3);
-}
-
-.modal-body input,
-.modal-body textarea {
-  width: 100%;
-  padding: 14px 18px;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(90, 150, 255, 0.2);
-  border-radius: 12px;
-  color: #fff;
-  font-size: 14px;
-  margin-bottom: 15px;
-  outline: none;
-  transition: all 0.3s ease;
-}
-
-.modal-body input:focus,
-.modal-body textarea:focus {
-  border-color: rgba(90, 150, 255, 0.5);
-}
-
-.modal-body textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-.modal-actions {
-  display: flex;
-  gap: 15px;
-  margin-top: 10px;
-}
-
-.modal-btn {
-  flex: 1;
-  padding: 14px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.modal-btn.secondary {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
-}
-
-.modal-btn.primary {
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-  border: none;
-  color: #fff;
-}
-
-.modal-btn:hover {
-  transform: translateY(-2px);
-}
-
-/* Ayarlar Sayfası */
+/* Settings */
 .settings-section {
-  display: none;
-}
-
-.settings-section.active {
-  display: block;
-}
-
-.settings-card {
-  background: rgba(10, 20, 35, 0.8);
-  border: 1px solid rgba(90, 150, 255, 0.15);
-  border-radius: 16px;
-  padding: 25px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
   margin-bottom: 20px;
 }
 
-.settings-card h3 {
-  font-size: 16px;
+.settings-title {
+  font-size: 14px;
+  font-weight: 600;
   margin-bottom: 20px;
-  color: #fff;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
 }
 
-.avatar-upload {
+.avatar-section {
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 24px;
 }
 
-.avatar-preview {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #1a3a5c 0%, #0d1f33 100%);
-  border: 3px solid rgba(90, 150, 255, 0.3);
+.avatar-large {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 40px;
+  font-size: 32px;
+  color: var(--text-muted);
   overflow: hidden;
 }
 
-.avatar-preview img {
+.avatar-large img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -713,241 +586,295 @@ body::before {
 .avatar-actions {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
-.upload-btn {
-  padding: 10px 20px;
-  background: rgba(90, 150, 255, 0.2);
-  border: 1px solid rgba(90, 150, 255, 0.3);
-  border-radius: 10px;
-  color: #8bb8ff;
-  font-size: 13px;
+.btn-secondary {
+  padding: 8px 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-size: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
-.upload-btn:hover {
-  background: rgba(90, 150, 255, 0.3);
+.btn-secondary:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
 }
 
 .form-group {
   margin-bottom: 20px;
 }
 
-.form-group label {
+.form-label {
   display: block;
-  font-size: 12px;
-  color: rgba(255,255,255,0.5);
-  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
 }
 
-.form-group input {
+.form-input {
   width: 100%;
-  padding: 14px 18px;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(90, 150, 255, 0.2);
-  border-radius: 12px;
-  color: #fff;
-  font-size: 14px;
+  max-width: 400px;
+  padding: 12px 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 13px;
   outline: none;
-  transition: all 0.3s ease;
+  transition: border-color 0.2s ease;
 }
 
-.form-group input:focus {
-  border-color: rgba(90, 150, 255, 0.5);
+.form-input:focus {
+  border-color: var(--accent);
 }
 
-/* Dava Detay Sayfası */
-.case-detail-section {
-  display: none;
-}
-
-.case-detail-section.active {
-  display: block;
-}
-
+/* Case Detail */
 .case-detail-header {
-  background: rgba(10, 20, 35, 0.8);
-  border: 1px solid rgba(90, 150, 255, 0.15);
-  border-radius: 16px;
-  padding: 30px;
-  margin-bottom: 25px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 24px;
+}
+
+.case-detail-id {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: 'SF Mono', 'Consolas', monospace;
+  margin-bottom: 8px;
 }
 
 .case-detail-title {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 12px;
 }
 
-.case-detail-meta {
+.case-detail-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 700px;
+}
+
+.case-detail-stats {
   display: flex;
-  gap: 30px;
-  margin-top: 20px;
+  gap: 32px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.detail-stat {
+  text-align: center;
+}
+
+.detail-stat-value {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.detail-stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
 }
 
 /* Tabs */
 .tabs {
   display: flex;
-  gap: 5px;
-  background: rgba(10, 20, 35, 0.8);
-  border: 1px solid rgba(90, 150, 255, 0.15);
-  border-radius: 12px;
-  padding: 5px;
-  margin-bottom: 25px;
+  gap: 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 24px;
 }
 
 .tab {
   flex: 1;
-  padding: 12px 20px;
+  padding: 10px 16px;
   background: transparent;
   border: none;
-  border-radius: 8px;
-  color: rgba(255,255,255,0.5);
-  font-size: 13px;
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .tab:hover {
-  color: #fff;
+  color: var(--text-secondary);
 }
 
 .tab.active {
-  background: rgba(90, 150, 255, 0.2);
-  color: #8bb8ff;
+  background: var(--accent-dim);
+  color: var(--accent);
 }
 
-/* Kanıt Kartları */
+/* Tab Content */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Evidence Grid */
 .evidence-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
 }
 
 .evidence-card {
-  background: rgba(10, 20, 35, 0.8);
-  border: 1px solid rgba(90, 150, 255, 0.15);
-  border-radius: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .evidence-card:hover {
-  border-color: rgba(90, 150, 255, 0.3);
-  transform: translateY(-3px);
+  border-color: var(--border-light);
 }
 
 .evidence-preview {
-  height: 160px;
-  background: rgba(0, 0, 0, 0.3);
+  height: 120px;
+  background: var(--bg-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 48px;
-  color: rgba(255,255,255,0.2);
+  color: var(--text-muted);
+  font-size: 28px;
 }
 
 .evidence-info {
-  padding: 20px;
+  padding: 16px;
 }
 
 .evidence-type {
   font-size: 10px;
-  color: #5a96ff;
+  color: var(--accent);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
 }
 
 .evidence-title {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 6px;
 }
 
-.evidence-added {
-  font-size: 12px;
-  color: rgba(255,255,255,0.4);
+.evidence-meta {
+  font-size: 11px;
+  color: var(--text-muted);
 }
 
-/* Şüpheli Kartları */
+.evidence-add {
+  border-style: dashed;
+  border-color: var(--border);
+}
+
+.evidence-add:hover {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.evidence-add .evidence-preview {
+  background: transparent;
+  color: var(--accent);
+}
+
+/* Suspect Cards */
+.suspect-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
 .suspect-card {
-  background: rgba(10, 20, 35, 0.8);
-  border: 1px solid rgba(90, 150, 255, 0.15);
-  border-radius: 16px;
-  padding: 25px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
   display: flex;
-  gap: 20px;
-  transition: all 0.3s ease;
-}
-
-.suspect-card:hover {
-  border-color: rgba(90, 150, 255, 0.3);
+  gap: 16px;
 }
 
 .suspect-photo {
-  width: 80px;
-  height: 80px;
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.3);
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  background: var(--bg-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 24px;
+  color: var(--text-muted);
   flex-shrink: 0;
 }
 
-.suspect-info h4 {
-  font-size: 16px;
-  margin-bottom: 5px;
+.suspect-name {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
 }
 
 .suspect-role {
-  font-size: 12px;
-  color: #5a96ff;
-  margin-bottom: 10px;
+  font-size: 11px;
+  color: var(--accent);
+  margin-bottom: 8px;
 }
 
 .suspect-desc {
-  font-size: 13px;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.5;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
 }
 
-/* Takım Yönetimi */
-.team-section {
-  background: rgba(10, 20, 35, 0.8);
-  border: 1px solid rgba(90, 150, 255, 0.15);
-  border-radius: 16px;
-  padding: 25px;
+/* Team Section */
+.team-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
 }
 
 .team-member {
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 15px 0;
-  border-bottom: 1px solid rgba(90, 150, 255, 0.1);
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
 }
 
-.team-member:last-child {
+.team-member:last-of-type {
   border-bottom: none;
 }
 
 .member-avatar {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #1a3a5c 0%, #0d1f33 100%);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--bg-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 14px;
+  color: var(--text-muted);
 }
 
 .member-info {
@@ -955,92 +882,257 @@ body::before {
 }
 
 .member-name {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
 }
 
-.member-contribution {
-  font-size: 12px;
-  color: rgba(255,255,255,0.4);
-}
-
-.member-role {
-  padding: 5px 12px;
-  background: rgba(90, 150, 255, 0.15);
-  border-radius: 20px;
+.member-contrib {
   font-size: 11px;
-  color: #8bb8ff;
+  color: var(--text-muted);
 }
 
-.add-member-btn {
+.member-badge {
+  font-size: 10px;
+  padding: 4px 10px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-radius: 4px;
+}
+
+.add-member {
   width: 100%;
-  padding: 15px;
-  background: rgba(90, 150, 255, 0.1);
-  border: 1px dashed rgba(90, 150, 255, 0.3);
-  border-radius: 12px;
-  color: #5a96ff;
-  font-size: 13px;
+  padding: 14px;
+  margin-top: 12px;
+  background: transparent;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 15px;
+  transition: all 0.2s ease;
 }
 
-.add-member-btn:hover {
-  background: rgba(90, 150, 255, 0.2);
-  border-style: solid;
+.add-member:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
 }
 
-/* Bildirimler */
-.notification {
+/* Notes Section */
+.notes-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.note-item {
+  padding: 16px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.note-header {
+  font-size: 11px;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.note-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.note-input {
+  width: 100%;
+  padding: 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 13px;
+  resize: vertical;
+  min-height: 100px;
+  outline: none;
+  font-family: inherit;
+}
+
+.note-input:focus {
+  border-color: var(--accent);
+}
+
+/* Modal */
+.modal-overlay {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  padding: 18px 25px;
-  background: rgba(15, 30, 50, 0.98);
-  border: 1px solid rgba(90, 150, 255, 0.3);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: 12px;
-  color: #fff;
-  font-size: 14px;
+  width: 90%;
+  max-width: 440px;
+  padding: 24px;
+  transform: translateY(20px);
+  transition: transform 0.2s ease;
+}
+
+.modal-overlay.active .modal {
+  transform: translateY(0);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  border: none;
+  color: var(--text-muted);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background: rgba(255, 80, 80, 0.15);
+  color: #ff6b6b;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 13px;
+  margin-bottom: 12px;
+  outline: none;
+}
+
+.modal-input:focus {
+  border-color: var(--accent);
+}
+
+.modal-select {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 13px;
+  margin-bottom: 12px;
+  outline: none;
+  cursor: pointer;
+}
+
+.modal-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 13px;
+  min-height: 100px;
+  resize: vertical;
+  outline: none;
+  font-family: inherit;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.modal-actions .btn-secondary,
+.modal-actions .btn-primary {
+  flex: 1;
+  padding: 12px;
+}
+
+/* Notification */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 14px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--text-primary);
   z-index: 2000;
   transform: translateY(100px);
   opacity: 0;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
 }
 
-.notification.show {
+.toast.show {
   transform: translateY(0);
   opacity: 1;
 }
 
-.notification.success {
-  border-color: rgba(34, 197, 94, 0.5);
-  background: rgba(34, 197, 94, 0.1);
+.toast.success {
+  border-color: var(--success);
 }
 
-.notification.error {
-  border-color: rgba(255, 80, 80, 0.5);
-  background: rgba(255, 80, 80, 0.1);
+.toast.error {
+  border-color: #ff6b6b;
 }
 
-/* Mobile Menu Toggle */
-.mobile-menu-toggle {
+/* Mobile Toggle */
+.mobile-toggle {
   display: none;
   position: fixed;
-  top: 15px;
-  left: 15px;
-  width: 45px;
-  height: 45px;
-  background: rgba(10, 20, 35, 0.95);
-  border: 1px solid rgba(90, 150, 255, 0.2);
-  border-radius: 12px;
-  color: #fff;
-  font-size: 20px;
+  top: 16px;
+  left: 16px;
+  width: 40px;
+  height: 40px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 18px;
   cursor: pointer;
   z-index: 101;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Responsive */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
   }
@@ -1049,49 +1141,57 @@ body::before {
     transform: translateX(0);
   }
   
-  .main-content {
+  .main {
     margin-left: 0;
-    padding: 80px 20px 30px;
   }
   
-  .mobile-menu-toggle {
+  .mobile-toggle {
     display: flex;
-    align-items: center;
-    justify-content: center;
   }
   
-  .leaderboard-header,
-  .leaderboard-row {
-    grid-template-columns: 40px 1fr 70px 70px;
-  }
-  
-  .leaderboard-header > *:last-child,
-  .leaderboard-row > *:last-child {
-    display: none;
-  }
-  
-  .content-header {
+  .header {
+    padding: 16px 20px;
+    padding-left: 70px;
     flex-direction: column;
-    gap: 20px;
     align-items: flex-start;
+    gap: 16px;
   }
   
-  .code-input-box {
+  .code-box {
     width: 100%;
   }
   
-  .code-input-box input {
+  .code-input {
     flex: 1;
   }
-}
-
-@media (max-width: 500px) {
-  .cards-grid {
+  
+  .content {
+    padding: 20px;
+  }
+  
+  .case-grid,
+  .evidence-grid,
+  .suspect-grid {
     grid-template-columns: 1fr;
   }
   
-  .case-meta {
+  .stats-row {
     flex-wrap: wrap;
+  }
+  
+  .stat-box {
+    flex: 1;
+    min-width: 80px;
+  }
+  
+  .lb-header,
+  .lb-row {
+    grid-template-columns: 40px 1fr 60px;
+  }
+  
+  .lb-header > *:last-child,
+  .lb-row > *:last-child {
+    display: none;
   }
   
   .tabs {
@@ -1100,7 +1200,7 @@ body::before {
   
   .tab {
     flex: none;
-    width: calc(50% - 5px);
+    width: calc(50% - 2px);
   }
 }
 </style>
@@ -1108,575 +1208,599 @@ body::before {
 
 <body>
 
-<!-- Mobile Menu Toggle -->
-<button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
-
-<!-- Sidebar -->
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-header">
-    <h2>PROJECT Z</h2>
-    <span>Dedektif Platformu</span>
-  </div>
+<div class="app">
   
-  <div class="profile-card">
-    <div class="profile-avatar" id="profileAvatar">🕵️</div>
-    <div class="profile-name" id="profileName">Dedektif Anonim</div>
-    <div class="profile-rank">
-      <span>⭐</span>
-      <span>Çaylak Dedektif</span>
+  <!-- Mobile Toggle -->
+  <button class="mobile-toggle" id="mobileToggle">☰</button>
+  
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">PROJECT Z</div>
+      <div class="logo-sub">Dedektif Platformu</div>
     </div>
-    <div class="profile-stats">
-      <div class="stat-item">
-        <div class="stat-value" id="solvedCount">0</div>
-        <div class="stat-label">Çözülen</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-value" id="activeCount">1</div>
-        <div class="stat-label">Aktif</div>
-      </div>
-    </div>
-  </div>
-  
-  <nav class="sidebar-menu">
-    <a class="menu-item active" data-page="dashboard">
-      <span>📊</span> Ana Panel
-    </a>
-    <a class="menu-item" data-page="cases">
-      <span>📁</span> Davalarım
-    </a>
-    <a class="menu-item" data-page="leaderboard">
-      <span>🏆</span> Liderlik Tablosu
-    </a>
-    <div class="menu-divider"></div>
-    <a class="menu-item" data-page="settings">
-      <span>⚙️</span> Ayarlar
-    </a>
-  </nav>
-  
-  <div class="sidebar-footer">
-    <button class="logout-btn" id="logoutBtn">🚪 Çıkış Yap</button>
-  </div>
-</aside>
-
-<!-- Ana İçerik -->
-<main class="main-content">
-
-  <!-- Dashboard Sayfası -->
-  <section class="page-section active" id="dashboardPage">
-    <div class="content-header">
-      <h1>Hoş Geldin, Dedektif!</h1>
-      <div class="code-input-box">
-        <input type="text" placeholder="Dava kodunu gir..." id="caseCodeInput" maxlength="12">
-        <button class="activate-btn" id="activateCodeBtn">Aktive Et</button>
+    
+    <div class="profile-mini">
+      <div class="profile-avatar" id="sidebarAvatar">D</div>
+      <div class="profile-info">
+        <div class="profile-name" id="sidebarName">Dedektif</div>
+        <div class="profile-rank">Çaylak Dedektif</div>
       </div>
     </div>
     
-    <div class="section-header">
-      <h2 class="section-title">Aktif Davalar</h2>
-      <a href="#" class="view-all" data-page="cases">Tümünü Gör →</a>
-    </div>
-    
-    <div class="cards-grid" id="activeCasesGrid">
-      <!-- Demo Dava -->
-      <div class="case-card" data-case="demo-001">
-        <div class="case-header">
-          <span class="case-number">DAVA #001</span>
-          <span class="case-status active">AKTİF</span>
-        </div>
-        <h3 class="case-title">Kayıp Miras</h3>
-        <p class="case-desc">Zengin bir iş adamının ölümünün ardından kaybolan miras belgelerinin peşine düş...</p>
-        <div class="case-meta">
-          <div class="meta-item">
-            <span>📎</span> 5 Kanıt
-          </div>
-          <div class="meta-item">
-            <span>👤</span> 3 Şüpheli
-          </div>
-          <div class="team-avatars">
-            <div class="team-avatar">🕵️</div>
-          </div>
-        </div>
+    <nav class="nav">
+      <div class="nav-section">
+        <div class="nav-label">Ana Menü</div>
+        <a class="nav-item active" data-page="dashboard">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
+            <rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+          Panel
+        </a>
+        <a class="nav-item" data-page="cases">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+          </svg>
+          Davalarım
+        </a>
+        <a class="nav-item" data-page="leaderboard">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 21v-6M12 21V9M16 21v-4M4 21h16"/>
+          </svg>
+          Sıralama
+        </a>
       </div>
       
-      <!-- Kilitli Dava Örneği -->
-      <div class="case-card locked-case">
-        <div class="case-header">
-          <span class="case-number">DAVA #???</span>
-          <span class="case-status locked">KİLİTLİ</span>
-        </div>
-        <h3 class="case-title">🔒 Yeni Dava</h3>
-        <p class="case-desc">Bu davayı açmak için geçerli bir dava kodu girmeniz gerekmektedir.</p>
-        <div class="case-meta">
-          <div class="meta-item" style="color: rgba(255,255,255,0.3);">
-            Kod ile aktive et
-          </div>
-        </div>
+      <div class="nav-section">
+        <div class="nav-label">Hesap</div>
+        <a class="nav-item" data-page="settings">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          Ayarlar
+        </a>
       </div>
-    </div>
+    </nav>
     
-    <div class="section-header">
-      <h2 class="section-title">En İyi Dedektifler</h2>
-      <a href="#" class="view-all" data-page="leaderboard">Tümünü Gör →</a>
+    <div class="sidebar-footer">
+      <button class="logout-btn" id="logoutBtn">Çıkış Yap</button>
     </div>
+  </aside>
+  
+  <!-- Main Content -->
+  <main class="main">
     
-    <div class="leaderboard">
-      <div class="leaderboard-header">
-        <div>#</div>
-        <div>Dedektif</div>
-        <div>Çözülen</div>
-        <div>Puan</div>
-        <div>Rütbe</div>
+    <!-- Header -->
+    <header class="header">
+      <div>
+        <h1 class="header-title" id="pageTitle">Panel</h1>
+        <p class="header-subtitle" id="pageSubtitle">Hoş geldin, dedektif</p>
       </div>
-      <div class="leaderboard-row">
-        <div class="rank-number top-1">1</div>
-        <div class="user-info">
-          <div class="user-avatar">👑</div>
-          <div>
-            <div class="user-name">ShadowHunter</div>
-            <div class="user-rank-badge">Efsane Dedektif</div>
+      <div class="code-box">
+        <input type="text" class="code-input" id="codeInput" placeholder="Dava kodu" maxlength="12">
+        <button class="btn-primary" id="activateBtn">Aktive Et</button>
+      </div>
+    </header>
+    
+    <!-- Content -->
+    <div class="content">
+      
+      <!-- Dashboard Page -->
+      <section class="page active" id="dashboardPage">
+        
+        <div class="welcome-card">
+          <h2 class="welcome-title">Hoş Geldin, <span id="welcomeName">Dedektif</span></h2>
+          <p class="welcome-text">
+            Yeni bir davaya başlamak için yukarıdaki alana dava kodunu gir. 
+            Aktif davalarını aşağıda görebilirsin.
+          </p>
+          <div class="stats-row">
+            <div class="stat-box">
+              <div class="stat-value" id="statSolved">0</div>
+              <div class="stat-label">Çözülen Dava</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="statActive">0</div>
+              <div class="stat-label">Aktif Dava</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="statPoints">0</div>
+              <div class="stat-label">Puan</div>
+            </div>
           </div>
         </div>
-        <div class="stat-cell highlight">24</div>
-        <div class="stat-cell">12,450</div>
-        <div class="stat-cell">👑</div>
-      </div>
-      <div class="leaderboard-row">
-        <div class="rank-number top-2">2</div>
-        <div class="user-info">
-          <div class="user-avatar">🔍</div>
-          <div>
-            <div class="user-name">MysteryMaster</div>
-            <div class="user-rank-badge">Baş Dedektif</div>
+        
+        <div class="section-header">
+          <h3 class="section-title">Aktif Davalar</h3>
+          <a class="section-link" data-page="cases">Tümünü Gör</a>
+        </div>
+        
+        <div class="case-grid" id="activeCasesGrid">
+          <div class="case-card" data-case="demo-001">
+            <div class="case-header">
+              <span class="case-id">#DV-2026-001</span>
+              <span class="case-status active">Aktif</span>
+            </div>
+            <h3 class="case-title">Kayıp Miras</h3>
+            <p class="case-desc">Zengin iş adamı Kemal Yılmaz'ın şüpheli ölümünün ardından kaybolan miras belgeleri...</p>
+            <div class="case-footer">
+              <span class="case-meta">Kanıt: <span>5</span></span>
+              <span class="case-meta">Şüpheli: <span>3</span></span>
+              <span class="case-meta">Takım: <span>1</span></span>
+            </div>
           </div>
         </div>
-        <div class="stat-cell highlight">18</div>
-        <div class="stat-cell">9,200</div>
-        <div class="stat-cell">⭐</div>
-      </div>
-      <div class="leaderboard-row">
-        <div class="rank-number top-3">3</div>
-        <div class="user-info">
-          <div class="user-avatar">🎯</div>
-          <div>
-            <div class="user-name">TruthSeeker</div>
-            <div class="user-rank-badge">Kıdemli Dedektif</div>
+        
+      </section>
+      
+      <!-- Cases Page -->
+      <section class="page" id="casesPage">
+        <div class="section-header">
+          <h3 class="section-title">Tüm Davalar</h3>
+        </div>
+        <div class="case-grid">
+          <div class="case-card" data-case="demo-001">
+            <div class="case-header">
+              <span class="case-id">#DV-2026-001</span>
+              <span class="case-status active">Aktif</span>
+            </div>
+            <h3 class="case-title">Kayıp Miras</h3>
+            <p class="case-desc">Zengin iş adamı Kemal Yılmaz'ın şüpheli ölümünün ardından kaybolan miras belgeleri...</p>
+            <div class="case-footer">
+              <span class="case-meta">Kanıt: <span>5</span></span>
+              <span class="case-meta">Şüpheli: <span>3</span></span>
+            </div>
           </div>
         </div>
-        <div class="stat-cell highlight">12</div>
-        <div class="stat-cell">6,800</div>
-        <div class="stat-cell">🥇</div>
-      </div>
+      </section>
+      
+      <!-- Leaderboard Page -->
+      <section class="page" id="leaderboardPage">
+        <div class="leaderboard">
+          <div class="lb-header">
+            <div>Sıra</div>
+            <div>Dedektif</div>
+            <div>Çözülen</div>
+            <div>Puan</div>
+          </div>
+          <div class="lb-row">
+            <div class="lb-rank gold">1</div>
+            <div class="lb-user">
+              <div class="lb-avatar">S</div>
+              <div>
+                <div class="lb-name">ShadowHunter</div>
+                <div class="lb-badge">Efsane Dedektif</div>
+              </div>
+            </div>
+            <div class="lb-stat">24</div>
+            <div class="lb-stat">12,450</div>
+          </div>
+          <div class="lb-row">
+            <div class="lb-rank silver">2</div>
+            <div class="lb-user">
+              <div class="lb-avatar">M</div>
+              <div>
+                <div class="lb-name">MysteryMaster</div>
+                <div class="lb-badge">Baş Dedektif</div>
+              </div>
+            </div>
+            <div class="lb-stat">18</div>
+            <div class="lb-stat">9,200</div>
+          </div>
+          <div class="lb-row">
+            <div class="lb-rank bronze">3</div>
+            <div class="lb-user">
+              <div class="lb-avatar">T</div>
+              <div>
+                <div class="lb-name">TruthSeeker</div>
+                <div class="lb-badge">Kıdemli Dedektif</div>
+              </div>
+            </div>
+            <div class="lb-stat">12</div>
+            <div class="lb-stat">6,800</div>
+          </div>
+          <div class="lb-row">
+            <div class="lb-rank">4</div>
+            <div class="lb-user">
+              <div class="lb-avatar">C</div>
+              <div>
+                <div class="lb-name">ClueCollector</div>
+                <div class="lb-badge">Dedektif</div>
+              </div>
+            </div>
+            <div class="lb-stat">8</div>
+            <div class="lb-stat">4,100</div>
+          </div>
+          <div class="lb-row" style="background: var(--accent-dim);">
+            <div class="lb-rank">5</div>
+            <div class="lb-user">
+              <div class="lb-avatar" id="lbUserAvatar">D</div>
+              <div>
+                <div class="lb-name" id="lbUserName">Sen</div>
+                <div class="lb-badge">Çaylak Dedektif</div>
+              </div>
+            </div>
+            <div class="lb-stat">0</div>
+            <div class="lb-stat">0</div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Settings Page -->
+      <section class="page" id="settingsPage">
+        <div class="settings-section">
+          <h3 class="settings-title">Profil Fotoğrafı</h3>
+          <div class="avatar-section">
+            <div class="avatar-large" id="avatarPreview">D</div>
+            <div class="avatar-actions">
+              <input type="file" id="avatarInput" accept="image/*" hidden>
+              <button class="btn-secondary" id="uploadBtn">Fotoğraf Yükle</button>
+              <button class="btn-secondary" id="removeBtn">Kaldır</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="settings-section">
+          <h3 class="settings-title">Profil Bilgileri</h3>
+          <div class="form-group">
+            <label class="form-label">Görünen İsim</label>
+            <input type="text" class="form-input" id="inputName" placeholder="İsminiz">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Kullanıcı Adı</label>
+            <input type="text" class="form-input" id="inputUsername" placeholder="Kullanıcı adınız">
+          </div>
+          <div class="form-group">
+            <label class="form-label">E-posta</label>
+            <input type="email" class="form-input" id="inputEmail" placeholder="E-posta adresiniz">
+          </div>
+          <button class="btn-primary" id="saveBtn">Kaydet</button>
+        </div>
+      </section>
+      
+      <!-- Case Detail Page -->
+      <section class="page" id="caseDetailPage">
+        <div class="case-detail-header">
+          <div class="case-detail-id">#DV-2026-001</div>
+          <h1 class="case-detail-title">Kayıp Miras</h1>
+          <p class="case-detail-desc">
+            Zengin iş adamı Kemal Yılmaz'ın şüpheli ölümünün ardından, milyonluk miras belgeleri ortadan kayboldu. 
+            Aile üyeleri birbirini suçluyor, hizmetçiler suskunluğunu koruyor. Gerçeği sadece sen bulabilirsin.
+          </p>
+          <div class="case-detail-stats">
+            <div class="detail-stat">
+              <div class="detail-stat-value">5</div>
+              <div class="detail-stat-label">Kanıt</div>
+            </div>
+            <div class="detail-stat">
+              <div class="detail-stat-value">3</div>
+              <div class="detail-stat-label">Şüpheli</div>
+            </div>
+            <div class="detail-stat">
+              <div class="detail-stat-value">2</div>
+              <div class="detail-stat-label">Medya</div>
+            </div>
+            <div class="detail-stat">
+              <div class="detail-stat-value">1</div>
+              <div class="detail-stat-label">Dedektif</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tabs">
+          <button class="tab active" data-tab="evidence">Kanıtlar</button>
+          <button class="tab" data-tab="suspects">Şüpheliler</button>
+          <button class="tab" data-tab="media">Medya</button>
+          <button class="tab" data-tab="team">Takım</button>
+          <button class="tab" data-tab="notes">Notlar</button>
+        </div>
+        
+        <!-- Evidence Tab -->
+        <div class="tab-content active" id="evidenceTab">
+          <div class="evidence-grid">
+            <div class="evidence-card">
+              <div class="evidence-preview">📄</div>
+              <div class="evidence-info">
+                <div class="evidence-type">Belge</div>
+                <div class="evidence-title">Vasiyetname Kopyası</div>
+                <div class="evidence-meta">Sen tarafından eklendi</div>
+              </div>
+            </div>
+            <div class="evidence-card">
+              <div class="evidence-preview">🔑</div>
+              <div class="evidence-info">
+                <div class="evidence-type">Fiziksel</div>
+                <div class="evidence-title">Kasa Anahtarı</div>
+                <div class="evidence-meta">Sen tarafından eklendi</div>
+              </div>
+            </div>
+            <div class="evidence-card">
+              <div class="evidence-preview">📱</div>
+              <div class="evidence-info">
+                <div class="evidence-type">Dijital</div>
+                <div class="evidence-title">Telefon Kayıtları</div>
+                <div class="evidence-meta">Sen tarafından eklendi</div>
+              </div>
+            </div>
+            <div class="evidence-card evidence-add" id="addEvidenceBtn">
+              <div class="evidence-preview">+</div>
+              <div class="evidence-info">
+                <div class="evidence-type">Yeni</div>
+                <div class="evidence-title">Kanıt Ekle</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Suspects Tab -->
+        <div class="tab-content" id="suspectsTab">
+          <div class="suspect-grid">
+            <div class="suspect-card">
+              <div class="suspect-photo">👨</div>
+              <div class="suspect-info">
+                <div class="suspect-name">Ahmet Yılmaz</div>
+                <div class="suspect-role">Büyük Oğul</div>
+                <p class="suspect-desc">Babasıyla son zamanlarda sık sık tartışıyordu. Şirketin yönetimini devralmak istiyordu.</p>
+              </div>
+            </div>
+            <div class="suspect-card">
+              <div class="suspect-photo">👩</div>
+              <div class="suspect-info">
+                <div class="suspect-name">Elif Yılmaz</div>
+                <div class="suspect-role">Kız Kardeş</div>
+                <p class="suspect-desc">Mirasta hak iddia ediyor. Babasının ölümünden bir gün önce evde olduğu tespit edildi.</p>
+              </div>
+            </div>
+            <div class="suspect-card">
+              <div class="suspect-photo">👨</div>
+              <div class="suspect-info">
+                <div class="suspect-name">Mustafa Demir</div>
+                <div class="suspect-role">Uşak</div>
+                <p class="suspect-desc">20 yıldır ailede çalışıyor. O gece evdeydi ama ifadesi tutarsız.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Media Tab -->
+        <div class="tab-content" id="mediaTab">
+          <div class="evidence-grid">
+            <div class="evidence-card">
+              <div class="evidence-preview">🎥</div>
+              <div class="evidence-info">
+                <div class="evidence-type">Video</div>
+                <div class="evidence-title">Güvenlik Kamerası</div>
+                <div class="evidence-meta">Giriş holü - 23:45</div>
+              </div>
+            </div>
+            <div class="evidence-card">
+              <div class="evidence-preview">🎙️</div>
+              <div class="evidence-info">
+                <div class="evidence-type">Ses</div>
+                <div class="evidence-title">Telefon Görüşmesi</div>
+                <div class="evidence-meta">Ahmet - Bilinmeyen</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Team Tab -->
+        <div class="tab-content" id="teamTab">
+          <div class="team-card">
+            <div class="team-member">
+              <div class="member-avatar" id="teamUserAvatar">D</div>
+              <div class="member-info">
+                <div class="member-name" id="teamUserName">Sen</div>
+                <div class="member-contrib">3 kanıt ekledi</div>
+              </div>
+              <span class="member-badge">Kurucu</span>
+            </div>
+            <button class="add-member" id="addMemberBtn">+ Dedektif Davet Et</button>
+          </div>
+        </div>
+        
+        <!-- Notes Tab -->
+        <div class="tab-content" id="notesTab">
+          <div class="notes-card">
+            <div class="note-item">
+              <div class="note-header">Sen - 2 saat önce</div>
+              <p class="note-text">Ahmet'in telefon kayıtlarını inceledim. Ölümden 2 saat önce bilinmeyen bir numarayla 15 dakika konuşmuş.</p>
+            </div>
+            <textarea class="note-input" placeholder="Yeni not ekle..."></textarea>
+            <button class="btn-primary" style="margin-top: 12px;" id="addNoteBtn">Not Ekle</button>
+          </div>
+        </div>
+        
+      </section>
+      
     </div>
-  </section>
+  </main>
+  
+</div>
 
-  <!-- Davalarım Sayfası -->
-  <section class="page-section" id="casesPage">
-    <div class="content-header">
-      <h1>Davalarım</h1>
-    </div>
-    
-    <div class="cards-grid">
-      <div class="case-card" data-case="demo-001">
-        <div class="case-header">
-          <span class="case-number">DAVA #001</span>
-          <span class="case-status active">AKTİF</span>
-        </div>
-        <h3 class="case-title">Kayıp Miras</h3>
-        <p class="case-desc">Zengin bir iş adamının ölümünün ardından kaybolan miras belgelerinin peşine düş...</p>
-        <div class="case-meta">
-          <div class="meta-item"><span>📎</span> 5 Kanıt</div>
-          <div class="meta-item"><span>👤</span> 3 Şüpheli</div>
-          <div class="team-avatars">
-            <div class="team-avatar">🕵️</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Liderlik Tablosu Sayfası -->
-  <section class="page-section" id="leaderboardPage">
-    <div class="content-header">
-      <h1>Liderlik Tablosu</h1>
-    </div>
-    
-    <div class="leaderboard">
-      <div class="leaderboard-header">
-        <div>#</div>
-        <div>Dedektif</div>
-        <div>Çözülen</div>
-        <div>Puan</div>
-        <div>Rütbe</div>
-      </div>
-      <div class="leaderboard-row">
-        <div class="rank-number top-1">1</div>
-        <div class="user-info">
-          <div class="user-avatar">👑</div>
-          <div>
-            <div class="user-name">ShadowHunter</div>
-            <div class="user-rank-badge">Efsane Dedektif</div>
-          </div>
-        </div>
-        <div class="stat-cell highlight">24</div>
-        <div class="stat-cell">12,450</div>
-        <div class="stat-cell">👑</div>
-      </div>
-      <div class="leaderboard-row">
-        <div class="rank-number top-2">2</div>
-        <div class="user-info">
-          <div class="user-avatar">🔍</div>
-          <div>
-            <div class="user-name">MysteryMaster</div>
-            <div class="user-rank-badge">Baş Dedektif</div>
-          </div>
-        </div>
-        <div class="stat-cell highlight">18</div>
-        <div class="stat-cell">9,200</div>
-        <div class="stat-cell">⭐</div>
-      </div>
-      <div class="leaderboard-row">
-        <div class="rank-number top-3">3</div>
-        <div class="user-info">
-          <div class="user-avatar">🎯</div>
-          <div>
-            <div class="user-name">TruthSeeker</div>
-            <div class="user-rank-badge">Kıdemli Dedektif</div>
-          </div>
-        </div>
-        <div class="stat-cell highlight">12</div>
-        <div class="stat-cell">6,800</div>
-        <div class="stat-cell">🥇</div>
-      </div>
-      <div class="leaderboard-row">
-        <div class="rank-number">4</div>
-        <div class="user-info">
-          <div class="user-avatar">🔎</div>
-          <div>
-            <div class="user-name">ClueCollector</div>
-            <div class="user-rank-badge">Dedektif</div>
-          </div>
-        </div>
-        <div class="stat-cell highlight">8</div>
-        <div class="stat-cell">4,100</div>
-        <div class="stat-cell">🥈</div>
-      </div>
-      <div class="leaderboard-row">
-        <div class="rank-number">5</div>
-        <div class="user-info">
-          <div class="user-avatar">🕵️</div>
-          <div>
-            <div class="user-name">Sen</div>
-            <div class="user-rank-badge">Çaylak Dedektif</div>
-          </div>
-        </div>
-        <div class="stat-cell highlight">0</div>
-        <div class="stat-cell">0</div>
-        <div class="stat-cell">🔰</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Ayarlar Sayfası -->
-  <section class="page-section" id="settingsPage">
-    <div class="content-header">
-      <h1>Ayarlar</h1>
-    </div>
-    
-    <div class="settings-card">
-      <h3>Profil Fotoğrafı</h3>
-      <div class="avatar-upload">
-        <div class="avatar-preview" id="avatarPreview">🕵️</div>
-        <div class="avatar-actions">
-          <input type="file" id="avatarInput" accept="image/*" style="display:none;">
-          <button class="upload-btn" id="uploadAvatarBtn">📷 Fotoğraf Yükle</button>
-          <button class="upload-btn" id="removeAvatarBtn">🗑️ Kaldır</button>
-        </div>
-      </div>
-    </div>
-    
-    <div class="settings-card">
-      <h3>Profil Bilgileri</h3>
-      <div class="form-group">
-        <label>Kullanıcı Adı</label>
-        <input type="text" id="settingsUsername" placeholder="Kullanıcı adınız">
-      </div>
-      <div class="form-group">
-        <label>E-posta</label>
-        <input type="email" id="settingsEmail" placeholder="E-posta adresiniz">
-      </div>
-      <div class="form-group">
-        <label>Görünen İsim</label>
-        <input type="text" id="settingsDisplayName" placeholder="Görünen isminiz">
-      </div>
-      <button class="activate-btn" style="margin-top:10px;" id="saveSettingsBtn">Değişiklikleri Kaydet</button>
-    </div>
-  </section>
-
-  <!-- Dava Detay Sayfası -->
-  <section class="page-section" id="caseDetailPage">
-    <div class="case-detail-header">
-      <div class="case-number">DAVA #001</div>
-      <h1 class="case-detail-title">Kayıp Miras</h1>
-      <p style="color: rgba(255,255,255,0.6); margin-top:10px; line-height:1.6;">
-        Zengin iş adamı Kemal Yılmaz'ın şüpheli ölümünün ardından, milyonluk miras belgeleri ortadan kayboldu. 
-        Aile üyeleri birbirini suçluyor, hizmetçiler suskunluğunu koruyor. Gerçeği sadece sen bulabilirsin.
-      </p>
-      <div class="case-detail-meta">
-        <div class="meta-item"><span>📅</span> Başlangıç: 15 Ocak 2026</div>
-        <div class="meta-item"><span>📎</span> 5 Kanıt</div>
-        <div class="meta-item"><span>👤</span> 3 Şüpheli</div>
-        <div class="meta-item"><span>🕵️</span> 1 Dedektif</div>
-      </div>
-    </div>
-    
-    <div class="tabs">
-      <button class="tab active" data-tab="evidence">📎 Kanıtlar</button>
-      <button class="tab" data-tab="suspects">👤 Şüpheliler</button>
-      <button class="tab" data-tab="media">🎬 Medya</button>
-      <button class="tab" data-tab="team">👥 Takım</button>
-      <button class="tab" data-tab="notes">📝 Notlar</button>
-    </div>
-    
-    <!-- Kanıtlar Tab -->
-    <div class="tab-content active" id="evidenceTab">
-      <div class="evidence-grid">
-        <div class="evidence-card">
-          <div class="evidence-preview">📄</div>
-          <div class="evidence-info">
-            <div class="evidence-type">Belge</div>
-            <div class="evidence-title">Vasiyetname Kopyası</div>
-            <div class="evidence-added">🕵️ Sen tarafından eklendi</div>
-          </div>
-        </div>
-        <div class="evidence-card">
-          <div class="evidence-preview">🔑</div>
-          <div class="evidence-info">
-            <div class="evidence-type">Fiziksel Kanıt</div>
-            <div class="evidence-title">Kasa Anahtarı</div>
-            <div class="evidence-added">🕵️ Sen tarafından eklendi</div>
-          </div>
-        </div>
-        <div class="evidence-card">
-          <div class="evidence-preview">📱</div>
-          <div class="evidence-info">
-            <div class="evidence-type">Dijital</div>
-            <div class="evidence-title">Telefon Kayıtları</div>
-            <div class="evidence-added">🕵️ Sen tarafından eklendi</div>
-          </div>
-        </div>
-        <div class="evidence-card" id="addEvidenceCard" style="cursor:pointer;">
-          <div class="evidence-preview" style="color: #5a96ff;">➕</div>
-          <div class="evidence-info">
-            <div class="evidence-type" style="color: #5a96ff;">Yeni Ekle</div>
-            <div class="evidence-title">Kanıt/İpucu Ekle</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Şüpheliler Tab -->
-    <div class="tab-content" id="suspectsTab" style="display:none;">
-      <div class="cards-grid">
-        <div class="suspect-card">
-          <div class="suspect-photo">👨‍💼</div>
-          <div class="suspect-info">
-            <h4>Ahmet Yılmaz</h4>
-            <div class="suspect-role">Büyük Oğul</div>
-            <p class="suspect-desc">Babasıyla son zamanlarda sık sık tartışıyordu. Şirketin yönetimini devralmak istiyordu.</p>
-          </div>
-        </div>
-        <div class="suspect-card">
-          <div class="suspect-photo">👩</div>
-          <div class="suspect-info">
-            <h4>Elif Yılmaz</h4>
-            <div class="suspect-role">Kız Kardeş</div>
-            <p class="suspect-desc">Mirasta hak iddia ediyor. Babasının ölümünden bir gün önce evde olduğu tespit edildi.</p>
-          </div>
-        </div>
-        <div class="suspect-card">
-          <div class="suspect-photo">👨‍🍳</div>
-          <div class="suspect-info">
-            <h4>Mustafa Demir</h4>
-            <div class="suspect-role">Uşak</div>
-            <p class="suspect-desc">20 yıldır ailede çalışıyor. O gece evdeydi ama ifadesi tutarsız.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Medya Tab -->
-    <div class="tab-content" id="mediaTab" style="display:none;">
-      <div class="evidence-grid">
-        <div class="evidence-card">
-          <div class="evidence-preview">🎥</div>
-          <div class="evidence-info">
-            <div class="evidence-type">Video</div>
-            <div class="evidence-title">Güvenlik Kamerası #1</div>
-            <div class="evidence-added">Giriş holü - 23:45</div>
-          </div>
-        </div>
-        <div class="evidence-card">
-          <div class="evidence-preview">🎙️</div>
-          <div class="evidence-info">
-            <div class="evidence-type">Ses Kaydı</div>
-            <div class="evidence-title">Telefon Görüşmesi</div>
-            <div class="evidence-added">Ahmet - Bilinmeyen numara</div>
-          </div>
-        </div>
-        <div class="evidence-card">
-          <div class="evidence-preview">📷</div>
-          <div class="evidence-info">
-            <div class="evidence-type">Fotoğraf</div>
-            <div class="evidence-title">Olay Yeri Fotoğrafları</div>
-            <div class="evidence-added">12 fotoğraf</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Takım Tab -->
-    <div class="tab-content" id="teamTab" style="display:none;">
-      <div class="team-section">
-        <h3 style="margin-bottom:20px; font-size:16px;">Dava Ekibi</h3>
-        <div class="team-member">
-          <div class="member-avatar">🕵️</div>
-          <div class="member-info">
-            <div class="member-name">Sen</div>
-            <div class="member-contribution">3 kanıt ekledi, 2 not yazdı</div>
-          </div>
-          <div class="member-role">Kurucu</div>
-        </div>
-        <button class="add-member-btn" id="addMemberBtn">➕ Dedektif Davet Et</button>
-      </div>
-    </div>
-    
-    <!-- Notlar Tab -->
-    <div class="tab-content" id="notesTab" style="display:none;">
-      <div class="settings-card">
-        <h3>Dava Notları</h3>
-        <div style="margin-top:15px; padding:15px; background:rgba(0,0,0,0.2); border-radius:10px; margin-bottom:15px;">
-          <div style="font-size:13px; color:#8bb8ff; margin-bottom:8px;">🕵️ Sen - 2 saat önce</div>
-          <p style="font-size:14px; line-height:1.6;">Ahmet'in telefon kayıtlarını inceledim. Ölümden 2 saat önce bilinmeyen bir numarayla 15 dakika konuşmuş.</p>
-        </div>
-        <textarea placeholder="Yeni not ekle..." style="width:100%; padding:15px; background:rgba(0,0,0,0.3); border:1px solid rgba(90,150,255,0.2); border-radius:10px; color:#fff; font-size:14px; min-height:100px; resize:vertical; outline:none;"></textarea>
-        <button class="activate-btn" style="margin-top:15px;">Not Ekle</button>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- Kanıt Ekleme Modal -->
+<!-- Evidence Modal -->
 <div class="modal-overlay" id="evidenceModal">
   <div class="modal">
     <div class="modal-header">
-      <h3 class="modal-title">Kanıt/İpucu Ekle</h3>
-      <button class="modal-close" id="closeEvidenceModal">✕</button>
+      <h3 class="modal-title">Kanıt Ekle</h3>
+      <button class="modal-close" data-close="evidenceModal">×</button>
     </div>
-    <div class="modal-body">
-      <input type="text" placeholder="Kanıt başlığı">
-      <select style="width:100%; padding:14px; background:rgba(0,0,0,0.3); border:1px solid rgba(90,150,255,0.2); border-radius:12px; color:#fff; font-size:14px; margin-bottom:15px; outline:none;">
-        <option value="">Kanıt türü seçin</option>
-        <option value="document">📄 Belge</option>
-        <option value="physical">🔍 Fiziksel Kanıt</option>
-        <option value="digital">📱 Dijital</option>
-        <option value="testimony">💬 İfade</option>
-        <option value="clue">💡 İpucu</option>
-      </select>
-      <textarea placeholder="Açıklama..."></textarea>
-    </div>
+    <input type="text" class="modal-input" placeholder="Kanıt başlığı">
+    <select class="modal-select">
+      <option value="">Tür seçin</option>
+      <option value="document">Belge</option>
+      <option value="physical">Fiziksel Kanıt</option>
+      <option value="digital">Dijital</option>
+      <option value="testimony">İfade</option>
+    </select>
+    <textarea class="modal-textarea" placeholder="Açıklama..."></textarea>
     <div class="modal-actions">
-      <button class="modal-btn secondary" id="cancelEvidence">İptal</button>
-      <button class="modal-btn primary" id="submitEvidence">Ekle</button>
+      <button class="btn-secondary" data-close="evidenceModal">İptal</button>
+      <button class="btn-primary" id="submitEvidence">Ekle</button>
     </div>
   </div>
 </div>
 
-<!-- Dedektif Davet Modal -->
+<!-- Invite Modal -->
 <div class="modal-overlay" id="inviteModal">
   <div class="modal">
     <div class="modal-header">
       <h3 class="modal-title">Dedektif Davet Et</h3>
-      <button class="modal-close" id="closeInviteModal">✕</button>
+      <button class="modal-close" data-close="inviteModal">×</button>
     </div>
-    <div class="modal-body">
-      <input type="text" placeholder="Kullanıcı adı veya e-posta">
-      <p style="font-size:13px; color:rgba(255,255,255,0.5); margin-top:10px;">
-        Davet ettiğiniz dedektif bu davadaki tüm kanıtları ve notları görebilecek, 
-        kendi kanıt ve notlarını ekleyebilecektir.
-      </p>
-    </div>
+    <input type="text" class="modal-input" placeholder="Kullanıcı adı veya e-posta">
+    <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">
+      Davet ettiğiniz dedektif bu davadaki tüm içerikleri görebilecektir.
+    </p>
     <div class="modal-actions">
-      <button class="modal-btn secondary" id="cancelInvite">İptal</button>
-      <button class="modal-btn primary" id="submitInvite">Davet Gönder</button>
+      <button class="btn-secondary" data-close="inviteModal">İptal</button>
+      <button class="btn-primary" id="submitInvite">Davet Gönder</button>
     </div>
   </div>
 </div>
 
-<!-- Bildirim -->
-<div class="notification" id="notification"></div>
+<!-- Toast -->
+<div class="toast" id="toast"></div>
 
 <script>
-// Elementler
+// Elements
 const sidebar = document.getElementById('sidebar');
-const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-const menuItems = document.querySelectorAll('.menu-item');
-const pageSections = document.querySelectorAll('.page-section');
-const viewAllLinks = document.querySelectorAll('.view-all');
-const caseCards = document.querySelectorAll('.case-card[data-case]');
+const mobileToggle = document.getElementById('mobileToggle');
+const pages = document.querySelectorAll('.page');
+const navItems = document.querySelectorAll('.nav-item');
 const tabs = document.querySelectorAll('.tab');
 const tabContents = document.querySelectorAll('.tab-content');
-const notification = document.getElementById('notification');
+const toast = document.getElementById('toast');
 
-// Mobile menü toggle
-mobileMenuToggle.addEventListener('click', () => {
-  sidebar.classList.toggle('open');
-});
+// State
+let currentUser = {
+  name: 'Dedektif',
+  avatar: null,
+  solved: 0,
+  active: 1,
+  points: 0
+};
 
-// Sayfa değiştirme
-function showPage(pageId) {
-  pageSections.forEach(section => section.classList.remove('active'));
-  menuItems.forEach(item => item.classList.remove('active'));
+// Initialize
+function init() {
+  loadUserData();
+  updateUI();
+}
+
+// Load user data from localStorage
+function loadUserData() {
+  const savedName = localStorage.getItem('userDisplayName') || localStorage.getItem('regName');
+  const savedAvatar = localStorage.getItem('userAvatar');
+  const savedUsername = localStorage.getItem('username') || localStorage.getItem('regUser');
+  const savedEmail = localStorage.getItem('regMail');
+  
+  if (savedName) currentUser.name = savedName;
+  if (savedAvatar) currentUser.avatar = savedAvatar;
+  
+  // Fill form inputs
+  document.getElementById('inputName').value = savedName || '';
+  document.getElementById('inputUsername').value = savedUsername || '';
+  document.getElementById('inputEmail').value = savedEmail || '';
+}
+
+// Update UI with user data
+function updateUI() {
+  // Update all name displays
+  document.getElementById('sidebarName').textContent = currentUser.name;
+  document.getElementById('welcomeName').textContent = currentUser.name;
+  document.getElementById('lbUserName').textContent = currentUser.name;
+  document.getElementById('teamUserName').textContent = currentUser.name;
+  document.getElementById('pageSubtitle').textContent = `Hoş geldin, ${currentUser.name}`;
+  
+  // Update avatars
+  const initial = currentUser.name.charAt(0).toUpperCase();
+  const avatarElements = ['sidebarAvatar', 'avatarPreview', 'lbUserAvatar', 'teamUserAvatar'];
+  
+  avatarElements.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      if (currentUser.avatar) {
+        el.innerHTML = `<img src="${currentUser.avatar}" alt="Avatar">`;
+      } else {
+        el.textContent = initial;
+      }
+    }
+  });
+  
+  // Update stats
+  document.getElementById('statSolved').textContent = currentUser.solved;
+  document.getElementById('statActive').textContent = currentUser.active;
+  document.getElementById('statPoints').textContent = currentUser.points;
+}
+
+// Show toast notification
+function showToast(message, type = 'success') {
+  toast.textContent = message;
+  toast.className = 'toast ' + type + ' show';
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// Navigate to page
+function navigateTo(pageId) {
+  pages.forEach(p => p.classList.remove('active'));
+  navItems.forEach(n => n.classList.remove('active'));
   
   const targetPage = document.getElementById(pageId + 'Page');
-  const targetMenuItem = document.querySelector(`.menu-item[data-page="${pageId}"]`);
+  const targetNav = document.querySelector(`.nav-item[data-page="${pageId}"]`);
   
   if (targetPage) targetPage.classList.add('active');
-  if (targetMenuItem) targetMenuItem.classList.add('active');
+  if (targetNav) targetNav.classList.add('active');
   
-  // Mobilde menüyü kapat
+  // Update header
+  const titles = {
+    dashboard: ['Panel', `Hoş geldin, ${currentUser.name}`],
+    cases: ['Davalarım', 'Tüm davalarını görüntüle'],
+    leaderboard: ['Sıralama', 'En iyi dedektifler'],
+    settings: ['Ayarlar', 'Profil ayarlarını düzenle'],
+    caseDetail: ['Dava Detayı', 'Kayıp Miras']
+  };
+  
+  if (titles[pageId]) {
+    document.getElementById('pageTitle').textContent = titles[pageId][0];
+    document.getElementById('pageSubtitle').textContent = titles[pageId][1];
+  }
+  
   sidebar.classList.remove('open');
 }
 
-// Menü tıklamaları
-menuItems.forEach(item => {
+// Mobile toggle
+mobileToggle.addEventListener('click', () => {
+  sidebar.classList.toggle('open');
+});
+
+// Navigation
+navItems.forEach(item => {
   item.addEventListener('click', (e) => {
     e.preventDefault();
-    const page = item.dataset.page;
-    showPage(page);
+    navigateTo(item.dataset.page);
   });
 });
 
-// View All linkleri
-viewAllLinks.forEach(link => {
+// Section links
+document.querySelectorAll('.section-link').forEach(link => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
-    const page = link.dataset.page;
-    showPage(page);
+    navigateTo(link.dataset.page);
   });
 });
 
-// Dava kartı tıklamaları
-caseCards.forEach(card => {
+// Case cards - open detail
+document.querySelectorAll('.case-card[data-case]').forEach(card => {
   card.addEventListener('click', () => {
-    const caseId = card.dataset.case;
-    if (caseId) {
-      showPage('caseDetail');
-    }
+    navigateTo('caseDetail');
   });
 });
 
-// Tab değiştirme
+// Tabs
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {
     const tabId = tab.dataset.tab;
@@ -1684,117 +1808,72 @@ tabs.forEach(tab => {
     tabs.forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
     
-      tabContents.forEach(content => {
-        content.style.display = 'none';
-      });
-      
-      const targetContent = document.getElementById(tabId + 'Tab');
-      if (targetContent) {
-        targetContent.style.display = 'block';
-      }
+    tabContents.forEach(content => {
+      content.classList.remove('active');
     });
+    
+    const targetContent = document.getElementById(tabId + 'Tab');
+    if (targetContent) {
+      targetContent.classList.add('active');
+    }
   });
+});
 
-// Bildirim gösterme
-function showNotification(message, type = 'success') {
-  notification.textContent = message;
-  notification.className = 'notification ' + type;
-  notification.classList.add('show');
-  
-  setTimeout(() => {
-    notification.classList.remove('show');
-  }, 3000);
-}
+// Code activation
+const codeInput = document.getElementById('codeInput');
+const activateBtn = document.getElementById('activateBtn');
 
-// Kod aktivasyonu
-const caseCodeInput = document.getElementById('caseCodeInput');
-const activateCodeBtn = document.getElementById('activateCodeBtn');
-
-activateCodeBtn.addEventListener('click', () => {
-  const code = caseCodeInput.value.trim().toUpperCase();
+activateBtn.addEventListener('click', () => {
+  const code = codeInput.value.trim().toUpperCase();
   
   if (!code) {
-    showNotification('Lütfen bir dava kodu girin!', 'error');
+    showToast('Lütfen bir kod girin', 'error');
     return;
   }
   
   if (code.length < 6) {
-    showNotification('Geçersiz kod formatı!', 'error');
+    showToast('Geçersiz kod formatı', 'error');
     return;
   }
   
-  // Demo: Belirli kodları kabul et
-  const validCodes = ['DEMO001', 'TEST123', 'CASE001', 'PROJECTZ'];
+  // Demo valid codes
+  const validCodes = ['DEMO001', 'TEST123', 'CASE001', 'PROJECTZ', 'MIRAS01'];
   
   if (validCodes.includes(code)) {
-    showNotification('🎉 Dava başarıyla aktive edildi!', 'success');
-    caseCodeInput.value = '';
+    showToast('Dava başarıyla aktive edildi');
+    codeInput.value = '';
+    currentUser.active++;
+    updateUI();
     
-    // Yeni dava kartı ekle (demo)
     setTimeout(() => {
-      showPage('caseDetail');
+      navigateTo('caseDetail');
     }, 1000);
   } else {
-    showNotification('Geçersiz veya kullanılmış kod!', 'error');
+    showToast('Geçersiz veya kullanılmış kod', 'error');
   }
 });
 
-// Enter tuşu ile kod aktivasyonu
-caseCodeInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') {
-    activateCodeBtn.click();
-  }
+codeInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') activateBtn.click();
 });
 
-// Kanıt ekleme modal
-const evidenceModal = document.getElementById('evidenceModal');
-const addEvidenceCard = document.getElementById('addEvidenceCard');
-const closeEvidenceModal = document.getElementById('closeEvidenceModal');
-const cancelEvidence = document.getElementById('cancelEvidence');
-const submitEvidence = document.getElementById('submitEvidence');
+// Modal functions
+function openModal(modalId) {
+  document.getElementById(modalId).classList.add('active');
+}
 
-addEvidenceCard?.addEventListener('click', () => {
-  evidenceModal.classList.add('active');
+function closeModal(modalId) {
+  document.getElementById(modalId).classList.remove('active');
+}
+
+// Modal close buttons
+document.querySelectorAll('[data-close]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    closeModal(btn.dataset.close);
+  });
 });
 
-closeEvidenceModal?.addEventListener('click', () => {
-  evidenceModal.classList.remove('active');
-});
-
-cancelEvidence?.addEventListener('click', () => {
-  evidenceModal.classList.remove('active');
-});
-
-submitEvidence?.addEventListener('click', () => {
-  evidenceModal.classList.remove('active');
-  showNotification('✅ Kanıt başarıyla eklendi!', 'success');
-});
-
-// Dedektif davet modal
-const inviteModal = document.getElementById('inviteModal');
-const addMemberBtn = document.getElementById('addMemberBtn');
-const closeInviteModal = document.getElementById('closeInviteModal');
-const cancelInvite = document.getElementById('cancelInvite');
-const submitInvite = document.getElementById('submitInvite');
-
-addMemberBtn?.addEventListener('click', () => {
-  inviteModal.classList.add('active');
-});
-
-closeInviteModal?.addEventListener('click', () => {
-  inviteModal.classList.remove('active');
-});
-
-cancelInvite?.addEventListener('click', () => {
-  inviteModal.classList.remove('active');
-});
-
-submitInvite?.addEventListener('click', () => {
-  inviteModal.classList.remove('active');
-  showNotification('📧 Davet gönderildi!', 'success');
-});
-
-// Modal dışına tıklayınca kapat
+// Close modal on overlay click
 document.querySelectorAll('.modal-overlay').forEach(overlay => {
   overlay.addEventListener('click', (e) => {
     if (e.target === overlay) {
@@ -1803,14 +1882,45 @@ document.querySelectorAll('.modal-overlay').forEach(overlay => {
   });
 });
 
-// Profil fotoğrafı yükleme
-const avatarInput = document.getElementById('avatarInput');
-const uploadAvatarBtn = document.getElementById('uploadAvatarBtn');
-const removeAvatarBtn = document.getElementById('removeAvatarBtn');
-const avatarPreview = document.getElementById('avatarPreview');
-const profileAvatar = document.getElementById('profileAvatar');
+// Add evidence button
+document.getElementById('addEvidenceBtn')?.addEventListener('click', () => {
+  openModal('evidenceModal');
+});
 
-uploadAvatarBtn?.addEventListener('click', () => {
+// Submit evidence
+document.getElementById('submitEvidence')?.addEventListener('click', () => {
+  closeModal('evidenceModal');
+  showToast('Kanıt eklendi');
+});
+
+// Add member button
+document.getElementById('addMemberBtn')?.addEventListener('click', () => {
+  openModal('inviteModal');
+});
+
+// Submit invite
+document.getElementById('submitInvite')?.addEventListener('click', () => {
+  closeModal('inviteModal');
+  showToast('Davet gönderildi');
+});
+
+// Add note
+document.getElementById('addNoteBtn')?.addEventListener('click', () => {
+  const noteInput = document.querySelector('.note-input');
+  if (noteInput.value.trim()) {
+    showToast('Not eklendi');
+    noteInput.value = '';
+  } else {
+    showToast('Lütfen bir not yazın', 'error');
+  }
+});
+
+// Avatar upload
+const avatarInput = document.getElementById('avatarInput');
+const uploadBtn = document.getElementById('uploadBtn');
+const removeBtn = document.getElementById('removeBtn');
+
+uploadBtn?.addEventListener('click', () => {
   avatarInput.click();
 });
 
@@ -1819,165 +1929,117 @@ avatarInput?.addEventListener('change', (e) => {
   if (file) {
     const reader = new FileReader();
     reader.onload = (event) => {
-      const imgUrl = event.target.result;
-      
-      // Avatar preview güncelle
-      avatarPreview.innerHTML = `<img src="${imgUrl}" alt="Avatar">`;
-      
-      // Sidebar avatar güncelle
-      profileAvatar.innerHTML = `<img src="${imgUrl}" alt="Avatar">`;
-      
-      showNotification('✅ Profil fotoğrafı güncellendi!', 'success');
-      
-      // LocalStorage'a kaydet
-      localStorage.setItem('userAvatar', imgUrl);
+      currentUser.avatar = event.target.result;
+      localStorage.setItem('userAvatar', currentUser.avatar);
+      updateUI();
+      showToast('Profil fotoğrafı güncellendi');
     };
     reader.readAsDataURL(file);
   }
 });
 
-removeAvatarBtn?.addEventListener('click', () => {
-  avatarPreview.innerHTML = '🕵️';
-  profileAvatar.innerHTML = '🕵️';
+removeBtn?.addEventListener('click', () => {
+  currentUser.avatar = null;
   localStorage.removeItem('userAvatar');
-  showNotification('Profil fotoğrafı kaldırıldı', 'success');
+  updateUI();
+  showToast('Profil fotoğrafı kaldırıldı');
 });
 
-// Ayarları kaydet
-const saveSettingsBtn = document.getElementById('saveSettingsBtn');
-const settingsUsername = document.getElementById('settingsUsername');
-const settingsEmail = document.getElementById('settingsEmail');
-const settingsDisplayName = document.getElementById('settingsDisplayName');
-const profileName = document.getElementById('profileName');
-
-saveSettingsBtn?.addEventListener('click', () => {
-  const displayName = settingsDisplayName.value.trim();
+// Save settings
+document.getElementById('saveBtn')?.addEventListener('click', () => {
+  const name = document.getElementById('inputName').value.trim();
+  const username = document.getElementById('inputUsername').value.trim();
+  const email = document.getElementById('inputEmail').value.trim();
   
-  if (displayName) {
-    profileName.textContent = displayName;
-    localStorage.setItem('userDisplayName', displayName);
+  if (name) {
+    currentUser.name = name;
+    localStorage.setItem('userDisplayName', name);
   }
   
-  if (settingsUsername.value) {
-    localStorage.setItem('username', settingsUsername.value);
+  if (username) {
+    localStorage.setItem('username', username);
   }
   
-  if (settingsEmail.value) {
-    localStorage.setItem('userEmail', settingsEmail.value);
+  if (email) {
+    localStorage.setItem('userEmail', email);
   }
   
-  showNotification('✅ Ayarlar kaydedildi!', 'success');
+  updateUI();
+  showToast('Ayarlar kaydedildi');
 });
 
-// Çıkış yap
-const logoutBtn = document.getElementById('logoutBtn');
-
-logoutBtn?.addEventListener('click', () => {
+// Logout
+document.getElementById('logoutBtn')?.addEventListener('click', () => {
   if (confirm('Çıkış yapmak istediğinize emin misiniz?')) {
-    // LocalStorage temizle (isteğe bağlı)
-    // localStorage.clear();
-    
     window.location.href = 'index.html';
   }
 });
 
-// Sayfa yüklendiğinde kayıtlı verileri yükle
-function loadSavedData() {
-  // Avatar
-  const savedAvatar = localStorage.getItem('userAvatar');
-  if (savedAvatar) {
-    avatarPreview.innerHTML = `<img src="${savedAvatar}" alt="Avatar">`;
-    profileAvatar.innerHTML = `<img src="${savedAvatar}" alt="Avatar">`;
-  }
-  
-  // İsim
-  const savedName = localStorage.getItem('userDisplayName');
-  if (savedName) {
-    profileName.textContent = savedName;
-    if (settingsDisplayName) settingsDisplayName.value = savedName;
-  }
-  
-  // Kullanıcı adı
-  const savedUsername = localStorage.getItem('username');
-  if (savedUsername && settingsUsername) {
-    settingsUsername.value = savedUsername;
-  }
-  
-  // E-posta
-  const savedEmail = localStorage.getItem('userEmail');
-  if (savedEmail && settingsEmail) {
-    settingsEmail.value = savedEmail;
-  }
-}
-
-// Kayıt sayfasından gelen verileri al
-function loadRegistrationData() {
-  const regName = localStorage.getItem('regName');
-  const regUser = localStorage.getItem('regUser');
-  const regMail = localStorage.getItem('regMail');
-  
-  if (regName) {
-    profileName.textContent = regName;
-    if (settingsDisplayName) settingsDisplayName.value = regName;
-    localStorage.setItem('userDisplayName', regName);
-  }
-  
-  if (regUser && settingsUsername) {
-    settingsUsername.value = regUser;
-    localStorage.setItem('username', regUser);
-  }
-  
-  if (regMail && settingsEmail) {
-    settingsEmail.value = regMail;
-    localStorage.setItem('userEmail', regMail);
-  }
-}
-
-// Sayfa yüklendiğinde
-document.addEventListener('DOMContentLoaded', () => {
-  loadSavedData();
-  loadRegistrationData();
-});
-
-// Klavye kısayolları
+// Keyboard shortcuts
 document.addEventListener('keydown', (e) => {
-  // ESC tuşu ile modalları kapat
   if (e.key === 'Escape') {
     document.querySelectorAll('.modal-overlay.active').forEach(modal => {
       modal.classList.remove('active');
     });
+    sidebar.classList.remove('open');
   }
 });
 
-// Dava çözme simülasyonu (demo için)
-function solveCaseDemo() {
-  const solvedCount = document.getElementById('solvedCount');
-  const activeCount = document.getElementById('activeCount');
-  
-  let solved = parseInt(solvedCount.textContent) || 0;
-  let active = parseInt(activeCount.textContent) || 0;
-  
-  if (active > 0) {
-    solved++;
-    active--;
+// Demo function for solving cases
+function solveCase() {
+  if (currentUser.active > 0) {
+    currentUser.active--;
+    currentUser.solved++;
+    currentUser.points += 500;
     
-    solvedCount.textContent = solved;
-    activeCount.textContent = active;
+    localStorage.setItem('solvedCases', currentUser.solved);
+    localStorage.setItem('activeCases', currentUser.active);
+    localStorage.setItem('userPoints', currentUser.points);
     
-    localStorage.setItem('solvedCases', solved);
-    localStorage.setItem('activeCases', active);
+    updateUI();
+    showToast('Tebrikler! Davayı çözdün!');
     
-    showNotification('🎉 Tebrikler! Davayı çözdün!', 'success');
+    // Update rank if needed
+    updateRank();
+  } else {
+    showToast('Aktif dava yok', 'error');
   }
 }
 
-// Demo: Konsola yardımcı fonksiyon ekle
-console.log('%c🔍 Project Z Panel', 'font-size: 20px; color: #5a96ff;');
-console.log('%cDemo kodları: DEMO001, TEST123, CASE001, PROJECTZ', 'color: #8bb8ff;');
-console.log('%cDava çözmek için: solveCaseDemo()', 'color: #4ade80;');
+// Update rank based on solved cases
+function updateRank() {
+  const ranks = [
+    { min: 0, name: 'Çaylak Dedektif' },
+    { min: 1, name: 'Acemi Dedektif' },
+    { min: 3, name: 'Dedektif' },
+    { min: 5, name: 'Kıdemli Dedektif' },
+    { min: 10, name: 'Baş Dedektif' },
+    { min: 20, name: 'Efsane Dedektif' }
+  ];
+  
+  let currentRank = ranks[0].name;
+  for (const rank of ranks) {
+    if (currentUser.solved >= rank.min) {
+      currentRank = rank.name;
+    }
+  }
+  
+  document.querySelectorAll('.profile-rank, .lb-badge').forEach(el => {
+    if (el.closest('.lb-row')?.style.background || el.classList.contains('profile-rank')) {
+      el.textContent = currentRank;
+    }
+  });
+}
 
-// Global fonksiyon olarak tanımla
-window.solveCaseDemo = solveCaseDemo;
+// Initialize on load
+document.addEventListener('DOMContentLoaded', init);
+
+// Console helpers
+console.log('%cProject Z Panel', 'font-size: 16px; color: #4a7cff; font-weight: bold;');
+console.log('%cDemo kodları: DEMO001, TEST123, CASE001, PROJECTZ, MIRAS01', 'color: #8a96a8;');
+console.log('%cDava çözmek için: solveCase()', 'color: #3daa6d;');
+
+window.solveCase = solveCase;
 </script>
 
 </body>
