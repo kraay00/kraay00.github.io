@@ -79,38 +79,50 @@ h1 {
 
 /* Buton */
 .btn {
-  padding: 13px 42px;
-  font-size: 13.5px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  border-radius: 30px;
+  padding: 12px 30px;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  border-radius: 25px;
   border: 1px solid rgba(140, 180, 255, 0.25);
   background: rgba(15, 28, 48, 0.6);
   color: #dfeaff;
   cursor: pointer;
   backdrop-filter: blur(4px);
-  transition: all 0.4s ease, transform 0.6s ease, opacity 0.5s ease;
+  transition: all 0.3s ease;
   text-decoration: none;
   display: inline-block;
+}
+
+.btn:hover {
+  background: rgba(140, 180, 255, 0.08);
+  border-color: rgba(140, 180, 255, 0.55);
+  box-shadow: 0 0 12px rgba(120, 170, 255, 0.25);
+}
+
+.btn:active {
+  transform: scale(0.97);
 }
 
 /* Register form */
 .registerForm {
   position: absolute;
   left: 50%;
-  bottom: -300px;
-  transform: translateX(-50%);
-  width: 350px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
   text-align: center;
   opacity: 0;
   pointer-events: none;
   transition: all 0.8s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 2;
 }
 
 .registerForm input {
-  width: 90%;
+  width: 100%;
   padding: 12px;
-  margin-bottom: 15px;
   border-radius: 12px;
   border: 1px solid rgba(50,150,255,0.5);
   background: rgba(0,0,0,0.35);
@@ -125,9 +137,15 @@ h1 {
   box-shadow:0 0 8px rgba(90,150,255,0.4);
 }
 
-.registerForm .btn {
-  width: 95%;
-  margin-top: 10px;
+/* Butonlar container */
+.formButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.formButtons .btn {
+  width: 48%;
 }
 </style>
 </head>
@@ -145,7 +163,10 @@ h1 {
   <input type="text" placeholder="Kullanıcı Adı">
   <input type="email" placeholder="E-posta">
   <input type="date" placeholder="Doğum Tarihi">
-  <button class="btn">Kayıt Ol</button>
+  <div class="formButtons">
+    <button class="btn" id="backBtn">Geri Dön</button>
+    <button class="btn">Kayıt Ol</button>
+  </div>
 </div>
 
 <script>
@@ -154,6 +175,7 @@ const mainContainer = document.getElementById('mainContainer');
 const subtitle = document.getElementById('subtitle');
 const mainTitle = document.getElementById('mainTitle');
 const registerForm = document.getElementById('registerForm');
+const backBtn = document.getElementById('backBtn');
 
 enterBtn.addEventListener('click', () => {
   // Buton kaybolsun
@@ -165,10 +187,24 @@ enterBtn.addEventListener('click', () => {
   subtitle.classList.add("glow");
   mainTitle.classList.add("glow");
 
-  // Register form alt kısımdan çıkacak
-  registerForm.style.bottom = "50px";
+  // Register form ortadan çıkacak
   registerForm.style.opacity = "1";
   registerForm.style.pointerEvents = "all";
+});
+
+backBtn.addEventListener('click', () => {
+  // Formu gizle
+  registerForm.style.opacity = "0";
+  registerForm.style.pointerEvents = "none";
+
+  // Yazıları geri getir
+  mainContainer.style.transform = "translate(-50%, -50%)";
+  subtitle.classList.remove("glow");
+  mainTitle.classList.remove("glow");
+
+  // Butonu geri getir
+  enterBtn.style.opacity = "1";
+  enterBtn.style.pointerEvents = "all";
 });
 </script>
 </body>
