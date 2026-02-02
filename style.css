@@ -1,0 +1,78 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background: #000;
+  overflow: hidden;
+  color: #e8f0ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #132a4a 0%, #0a1525 25%, #000 60%);
+  z-index: 0;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(90,150,255,0.18) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(60px);
+  z-index: 0;
+}
+
+.container, .login-container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+h1, h2 {
+  margin-bottom: 30px;
+  color: #f8fbff;
+  text-shadow: 0 0 6px rgba(255,255,255,0.35), 0 0 14px rgba(180,210,255,0.25);
+}
+
+.btn, .login-btn {
+  padding: 13px 42px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 30px;
+  border: 1px solid rgba(140,180,255,0.25);
+  background: rgba(15,28,48,0.6);
+  color: #dfeaff;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: all 0.25s ease;
+  display: block;
+  margin: 10px auto;
+  width: 60%;
+}
+
+.btn:hover, .login-btn:hover {
+  background: rgba(140,180,255,0.08);
+  border-color: rgba(140,180,255,0.55);
+  box-shadow: 0 0 12px rgba(120,170,255,0.25);
+}
+
+.login-container input {
+  width: 80%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
