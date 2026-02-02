@@ -1,106 +1,117 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Z | Dedektiflik Merkezi</title>
-    <style>
-        :root {
-            --bg-color: #02050a;
-            --accent-blue: #1e3a8a;
-            --glow-color: rgba(30, 58, 138, 0.4);
-            --text-white: #f8fbff;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f223d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Project Z</title>
 
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background-color: var(--bg-color);
-            font-family: 'Inter', -apple-system, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            color: var(--text-white);
-        }
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #000;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+}
 
-        /* Arka plandaki o meşhur mavi ışık */
-        .background-glow {
-            position: fixed;
-            width: 450px;
-            height: 450px;
-            background: radial-gradient(circle, var(--glow-color) 0%, rgba(0,0,0,0) 70%);
-            filter: blur(80px);
-            z-index: 0;
-        }
+/* 🌌 MAVİ ARKA PLAN — ARTIK GÖRÜNÜR */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20vh 0 -20vh 0;
+  background: radial-gradient(circle at center, #132a4a 0%, #0a1525 45%, #000 80%);
+  z-index: 0;
+}
 
-        .content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-        }
+/* 🌌 ARKA PLAN - DAHA KOYU VE MERKEZİ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  /* Mavi alanı %45'ten %25'e çektim, böylece daha merkezde kaldı */
+  background: radial-gradient(circle at center, #132a4a 0%, #0a1525 25%, #000 60%);
+  z-index: 0;
+}
 
-        .subtitle {
-            font-size: 14px;
-            letter-spacing: 5px;
-            color: rgba(255,255,255,0.4);
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
+/* 🔵 MERKEZDEKİ PARLAMA (GLOW) - BOYUTU KÜÇÜLTÜLDÜ */
+body::after {
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* Genişliği 520px'den 300px'e düşürdüm */
+  width: 300px; 
+  height: 300px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(90,150,255,0.18) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(60px); /* Blur değerini de azalttım ki çok dağılmasın */
+  z-index: 0;
+}
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 300;
-            margin-bottom: 40px;
-            text-shadow: 0 0 20px rgba(255,255,255,0.2);
-        }
 
-        .btn-enter {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            padding: 15px 50px;
-            font-size: 14px;
-            letter-spacing: 3px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(10px);
-        }
+.container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 520px;
+  padding: 20px;
+}
 
-        .btn-enter:hover {
-            background: white;
-            color: black;
-            box-shadow: 0 0 30px rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-        }
+.subtitle {
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+  margin-bottom: 14px;
+}
 
-        /* Dekoratif çizgiler (Sadelik için) */
-        .line {
-            width: 50px;
-            height: 1px;
-            background: rgba(255,255,255,0.2);
-            margin: 20px auto;
-        }
-    </style>
+h1 {
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 28px;
+  color: #f8fbff;
+  text-shadow:
+    0 0 6px rgba(255, 255, 255, 0.35),
+    0 0 14px rgba(180, 210, 255, 0.25);
+}
+
+.btn {
+  padding: 13px 42px;
+  font-size: 13.5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 30px;
+  border: 1px solid rgba(140, 180, 255, 0.25);
+  background: rgba(15, 28, 48, 0.6);
+  color: #dfeaff;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: all 0.25s ease;
+}
+
+.btn:hover {
+  background: rgba(140, 180, 255, 0.08);
+  border-color: rgba(140, 180, 255, 0.55);
+  box-shadow: 0 0 12px rgba(120, 170, 255, 0.25);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+</style>
 </head>
+
 <body>
 
-    <div class="background-glow"></div>
+<div class="container">
+  <div class="subtitle">PROJECT Z</div>
+  <h1>İlk davana hazır mısın?</h1>
+  <button class="btn">SİSTEME GİR</button>
+</div>
 
-    <div class="content">
-        <div class="subtitle">PROJECT Z</div>
-        <div class="line"></div>
-        <h1>Bir efsane olmaya hazır mısın?</h1>
-        <button class="btn-enter" onclick="startSystem()">SİSTEME GİRİŞ YAP</button>
-    </div>
-
-    <script>
-        function startSystem() {
-            // Buraya tıklayınca ne olacağını sonraki aşamada yazacağız (Kayıt ekranına geçiş)
-            alert("Sistem yükleniyor... Kimlik doğrulama başlatıldı.");
-        }
-    </script>
 </body>
 </html>
