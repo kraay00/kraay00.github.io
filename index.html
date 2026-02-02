@@ -39,7 +39,7 @@ body::after {
   z-index: 0;
 }
 
-/* Container */
+/* Ana container */
 .container {
   position: absolute;
   top: 50%;
@@ -47,7 +47,7 @@ body::after {
   transform: translate(-50%, -50%);
   text-align: center;
   z-index: 1;
-  transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
 }
 
 .subtitle {
@@ -94,8 +94,19 @@ h1 {
   display: inline-block;
 }
 
-/* Register form */
-.registerForm {
+/* Sağ üst küçük login butonu */
+#loginShortcut {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 8px 20px;
+  font-size: 12px;
+  border-radius: 20px;
+  z-index: 2;
+}
+
+/* Formlar ortak */
+.formContainer {
   position: absolute;
   left: 50%;
   bottom: -400px;
@@ -107,7 +118,7 @@ h1 {
   transition: all 0.8s ease;
 }
 
-.registerForm input {
+.formContainer input {
   width: 90%;
   padding: 12px;
   margin-bottom: 15px;
@@ -120,19 +131,18 @@ h1 {
   transition: all 0.3s ease;
 }
 
-.registerForm input:focus {
+.formContainer input:focus {
   border-color: rgba(90,150,255,0.8);
   box-shadow:0 0 8px rgba(90,150,255,0.4);
 }
 
-/* Butonları ikiye böl */
-.formButtons {
+.formContainer .formButtons {
   display: flex;
   justify-content: space-between;
   margin-top: 8px;
 }
 
-.formButtons .btn {
+.formContainer .formButtons .btn {
   width: 48%;
 }
 </style>
@@ -145,124 +155,105 @@ h1 {
   <button class="btn" id="enterBtn">SİSTEME GİR</button>
 </div>
 
+<!-- Sağ üst login shortcut -->
+<button class="btn" id="loginShortcut">Giriş Yap</button>
+
 <!-- Register form -->
-<div class="registerForm" id="registerForm">
+<div class="formContainer" id="registerForm">
   <input type="text" placeholder="İsim Soyisim">
   <input type="text" placeholder="Kullanıcı Adı">
   <input type="email" placeholder="E-posta">
   <input type="date" placeholder="Doğum Tarihi">
   <div class="formButtons">
-    <button class="btn" id="backBtn">Geri Dön</button>
+    <button class="btn" id="registerBack">Geri Dön</button>
     <button class="btn">Kayıt Ol</button>
   </div>
 </div>
 
+<!-- Login form -->
+<div class="formContainer" id="loginForm">
+  <input type="text" placeholder="Kullanıcı Adı">
+  <input type="password" placeholder="Şifre">
+  <div class="formButtons">
+    <button class="btn" id="loginBack">Geri Dön</button>
+    <button class="btn">Giriş Yap</button>
+  </div>
+</div>
+
 <script>
-const enterBtn = document.getElementById('enterBtn');
 const mainContainer = document.getElementById('mainContainer');
 const subtitle = document.getElementById('subtitle');
 const mainTitle = document.getElementById('mainTitle');
+
+const enterBtn = document.getElementById('enterBtn');
+const loginShortcut = document.getElementById('loginShortcut');
+
 const registerForm = document.getElementById('registerForm');
-const backBtn = document.getElementById('backBtn');
+const registerBack = document.getElementById('registerBack');
 
+const loginForm = document.getElementById('loginForm');
+const loginBack = document.getElementById('loginBack');
+
+// Register açma
 enterBtn.addEventListener('click', () => {
-  // Buton kaybolsun
-  enterBtn.style.opacity = "0";
-  enterBtn.style.pointerEvents = "none";
+  mainContainer.style.opacity = "0";
+  mainContainer.style.pointerEvents = "none";
+  loginShortcut.style.opacity = "0";
+  loginShortcut.style.pointerEvents = "none";
 
-  // Yazılar yukarı çıkacak
-  mainContainer.style.transform = "translate(-50%, -330px)";
+  subtitle.style.transform = "translateY(-150px)";
   subtitle.classList.add("glow");
-  mainTitle.classList.add("glow");
 
-  // Register form animasyonla ortadan çıkacak
   registerForm.style.bottom = "175px";
   registerForm.style.opacity = "1";
   registerForm.style.pointerEvents = "all";
 });
 
-backBtn.addEventListener('click', () => {
-  // Formu gizle
+// Register geri
+registerBack.addEventListener('click', () => {
   registerForm.style.bottom = "-400px";
   registerForm.style.opacity = "0";
   registerForm.style.pointerEvents = "none";
 
-  // Yazıları geri getir
-  mainContainer.style.transform = "translate(-50%, -50%)";
+  mainContainer.style.opacity = "1";
+  mainContainer.style.pointerEvents = "all";
+  loginShortcut.style.opacity = "1";
+  loginShortcut.style.pointerEvents = "all";
+
+  subtitle.style.transform = "translateY(0)";
   subtitle.classList.remove("glow");
-  mainTitle.classList.remove("glow");
-
-  // Butonu geri getir
-  enterBtn.style.opacity = "1";
-  enterBtn.style.pointerEvents = "all";
 });
-</script>
 
-<!-- Sağ üst köşe küçük giriş butonu -->
-<button class="btn" id="loginShortcut" style="position:absolute;top:15px;right:15px;padding:8px 20px;font-size:12px;border-radius:20px;">Giriş Yap</button>
-
-<!-- Login form -->
-<div class="loginForm" id="loginForm">
-  <input type="text" placeholder="Kullanıcı Adı">
-  <input type="password" placeholder="Şifre">
-  <button class="btn">Giriş Yap</button>
-</div>
-
-<style>
-.loginForm {
-  position: absolute;
-  left: 50%;
-  bottom: -200px;
-  transform: translateX(-50%);
-  width: 300px;
-  text-align: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.8s ease;
-}
-
-.loginForm input {
-  width: 90%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 12px;
-  border: 1px solid rgba(50,150,255,0.5);
-  background: rgba(0,0,0,0.35);
-  color: #e8f0ff;
-  font-size: 14px;
-  outline:none;
-  transition: all 0.3s ease;
-}
-
-.loginForm input:focus {
-  border-color: rgba(90,150,255,0.8);
-  box-shadow:0 0 8px rgba(90,150,255,0.4);
-}
-
-.loginForm button {
-  width: 95%;
-}
-</style>
-
-<script>
-const loginShortcut = document.getElementById('loginShortcut');
-const loginForm = document.getElementById('loginForm');
-
+// Login açma
 loginShortcut.addEventListener('click', () => {
-  // Tüm mevcut container görünürlüğünü kapat
-  const mainContainer = document.getElementById('mainContainer');
   mainContainer.style.opacity = "0";
   mainContainer.style.pointerEvents = "none";
-  
-  // PROJECT Z yazısı yukarı çıksın
-  const subtitle = document.getElementById('subtitle');
+  enterBtn.style.opacity = "0";
+  enterBtn.style.pointerEvents = "none";
+  loginShortcut.style.opacity = "0";
+  loginShortcut.style.pointerEvents = "none";
+
   subtitle.style.transform = "translateY(-150px)";
   subtitle.classList.add("glow");
-  
-  // Login form yukarı animasyonla çıksın
+
   loginForm.style.bottom = "175px";
   loginForm.style.opacity = "1";
   loginForm.style.pointerEvents = "all";
+});
+
+// Login geri
+loginBack.addEventListener('click', () => {
+  loginForm.style.bottom = "-400px";
+  loginForm.style.opacity = "0";
+  loginForm.style.pointerEvents = "none";
+
+  mainContainer.style.opacity = "1";
+  mainContainer.style.pointerEvents = "all";
+  loginShortcut.style.opacity = "1";
+  loginShortcut.style.pointerEvents = "all";
+
+  subtitle.style.transform = "translateY(0)";
+  subtitle.classList.remove("glow");
 });
 </script>
 
