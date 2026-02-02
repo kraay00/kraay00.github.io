@@ -18,33 +18,39 @@ html, body {
   overflow: hidden;
 }
 
-
-/* 🌌 ARKA PLAN - DAHA KOYU VE MERKEZİ */
+/* 🌌 MAVİ ARKA PLAN — ARTIK GÖRÜNÜR */
 body::before {
   content: "";
   position: fixed;
-  inset: 0;
-  /* Mavi alanı %45'ten %25'e çektim, böylece daha merkezde kaldı */
-  background: radial-gradient(circle at center, #132a4a 0%, #0a1525 25%, #000 60%);
+  inset: 0; /* Changed from -20vh 0 -20vh 0 to 0 */
+  background: radial-gradient(circle at center, #132a4a 0%, #0a1525 45%, #000 80%);
   z-index: 0;
 }
 
-/* 🔵 MERKEZDEKİ PARLAMA (GLOW) - BOYUTU KÜÇÜLTÜLDÜ */
+
+/* 🔵 GLOW EFEKTİ */
 body::after {
   content: "";
   position: fixed;
   top: 50%;
   left: 50%;
-  /* Genişliği 520px'den 300px'e düşürdüm */
-  width: 300px; 
-  height: 300px;
+  width: 520px;
+  height: 520px;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(90,150,255,0.18) 0%, rgba(0,0,0,0) 70%);
-  filter: blur(60px); /* Blur değerini de azalttım ki çok dağılmasın */
+  background: radial-gradient(circle, rgba(90,150,255,0.25) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(120px);
   z-index: 0;
 }
 
-
+body {
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  color: #e8f0ff;
+}
 
 .container {
   position: relative;
